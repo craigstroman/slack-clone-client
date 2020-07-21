@@ -1,3 +1,4 @@
 /src/registerServiceWorker.js
 /src/apollo.js
 /src/shared/util/createFileLink.js
+/src/shared/util/privateRoutes.jsx
