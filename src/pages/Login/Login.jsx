@@ -162,7 +162,11 @@ class Login extends React.Component {
         localStorage.setItem('token', token);
         localStorage.setItem('refreshToken', refreshToken);
 
-        history.push('/dashboard/');
+        if (teamUUID !== null) {
+          history.push(`/dashboard/view/team/${teamUUID}/channel/${channelUUID}`);
+        } else {
+          history.push('/dashboard/view/team/');
+        }
       } else {
         this.setState({ errors: true });
       }
@@ -263,6 +267,8 @@ const loginMutation = gql`
   mutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       ok
+      teamUUID
+      channelUUID
       token
       refreshToken
       errors {
@@ -274,12 +280,12 @@ const loginMutation = gql`
 `;
 
 Login.defaultProps = {
-  mutate: {},
+  mutate: () => {},
   history: {},
 };
 
 Login.propTypes = {
-  mutate: PropTypes.object,
+  mutate: PropTypes.func,
   history: PropTypes.object,
 };
 
