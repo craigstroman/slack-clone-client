@@ -1,7 +1,7 @@
 {
-  "name": "basic_authentication_server_client",
+  "name": "slack-clone-client",
   "version": "1.0.0",
-  "description": "",
+  "description": "The client for slack clone.",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.dev.js"
