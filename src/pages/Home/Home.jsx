@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import PrivateRoute from '../../shared/util/privateRoutes';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
-import Dashboard from '../Dashboard/Dashboard';
+import CreateTeam from '../Teams/CreateTeam/CreateTeam';
+import ViewTeam from '../Teams/ViewTeam/ViewTeam';
 
 const Home = (props) => (
   <>
@@ -18,7 +19,14 @@ const Home = (props) => (
               <Route path="/" exact component={Login} />
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
-              <PrivateRoute path="/dashboard" exact component={Dashboard} />
+              <PrivateRoute path="/dashboard" exact component={ViewTeam} />
+              <PrivateRoute path="/dashboard/view/team/:teamId?" exact component={ViewTeam} />
+              <PrivateRoute
+                path="/dashboard/view/team/:teamId?/channel/:channelId?"
+                exact
+                component={ViewTeam}
+              />
+              <PrivateRoute path="/create-team" exact component={CreateTeam} />
             </Switch>
           </Grid>
         </Grid>
