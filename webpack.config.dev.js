@@ -2,13 +2,15 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
+// TODO: Figure out why hot reloading is not working with this setup.
+
 const nodeEnv = process.env.NODE_ENV;
 const filePath = path.join(__dirname, './public/js/');
 const fileName = 'bundle.js';
 
 const PATHS = {
-  src: path.join(__dirname, './src'),
-  dist: path.join(__dirname, './public'),
+  src: path.join(__dirname, './src/'),
+  dist: path.join(__dirname, 'public'),
 };
 
 module.exports = {
@@ -21,7 +23,9 @@ module.exports = {
   },
 
   output: {
-    filename: `static/${fileName}`,
+    path: PATHS.dist,
+    filename: fileName,
+    publicPath: '/',
   },
 
   watch: false,
@@ -89,11 +93,7 @@ module.exports = {
 
     hot: true,
 
-    host: 'localhost',
-
     port: 3000,
-
-    publicPath: '/',
   },
 
   plugins: [
