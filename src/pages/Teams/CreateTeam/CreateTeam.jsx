@@ -115,6 +115,7 @@ class CreateTeam extends React.Component {
   };
 
   render() {
+    const {history} = this.props;
     const { name, fieldErrors } = this.state;
 
     return (
@@ -136,7 +137,7 @@ class CreateTeam extends React.Component {
             >
               <Grid container spacing={3}>
                 <Grid item xs={12} style={{ textAlign: 'right' }}>
-                  <PopUpMenu />
+                  <PopUpMenu history={history} />
                 </Grid>
                 <Grid item xs={12}>
                   <StyledTextField
