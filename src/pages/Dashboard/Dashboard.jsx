@@ -5,7 +5,9 @@ import styled, { ThemeProvider } from 'styled-components';
 import meQuery from '../../shared/queries/team';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
-import theme from '../../shared/themes';
+import ChannelMessages from '../../components/Messages/ChannelMessages/ChannelMessages';
+import ChannelInput from '../../components/MessageInput/ChannelInput/ChannelInput';
+import Themes from '../../shared/themes';
 
 const Wrapper = styled.div`
   display: grid;
@@ -184,7 +186,7 @@ class Dashboard extends React.Component {
     };
 
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={Themes}>
         <Wrapper>
           <aside>
             <SidebarWrapper>
@@ -213,7 +215,13 @@ class Dashboard extends React.Component {
                 {match.params.channelId && selectedChannelId !== null && (
                   <>
                     <section>
-                      <Messages>ChannelMessages</Messages>
+                      <Messages>
+                        <ChannelMessages
+                          channelId={parseInt(selectedChannelId, 10)}
+                          channels={channels}
+                          match={match}
+                        />
+                      </Messages>
                     </section>
                   </>
                 )}
@@ -228,7 +236,13 @@ class Dashboard extends React.Component {
               <>
                 {match.params.channelId && (
                   <>
-                    <footer>ChannelInput</footer>
+                    <footer>
+                      <ChannelInput
+                        channelId={parseInt(selectedChannelId, 10)}
+                        channels={channels}
+                        match={match}
+                      />
+                    </footer>
                   </>
                 )}
                 {match.params.userId && (
