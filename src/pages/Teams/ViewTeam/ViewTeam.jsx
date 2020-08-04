@@ -5,7 +5,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import meQuery from '../../../shared/queries/team';
 import Dashboard from '../../Dashboard/Dashboard';
 import NoTeams from '../NoTeams/NoTeams';
-import theme from '../../../shared/themes';
+import Themes from '../../../shared/themes';
 
 const Wrapper = styled.div`
   display: block;
@@ -39,7 +39,7 @@ const ViewTeam = (props) => {
   const team = teams.find((el) => el.uuid === params.teamId);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={Themes}>
       <Wrapper>
         <Dashboard me={me} team={team} teamId={team.id} userId={me.id} {...props} />
       </Wrapper>

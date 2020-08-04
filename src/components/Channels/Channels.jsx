@@ -5,7 +5,7 @@ import { Button, IconButton } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import AddChannel from '../AddChannel/AddChannel';
-import theme from '../../shared/themes';
+import Themes from '../../shared/themes';
 
 const Wrapper = styled.div`
   margin-top: 10px;
@@ -18,7 +18,7 @@ const Heading = styled.div`
   width: 100%;
   h3,
   button {
-    color: ${props => props.theme.colors.shadyLady};
+    color: ${(props) => props.theme.colors.shadyLady};
     float: left;
   }
   h3 {
@@ -26,7 +26,7 @@ const Heading = styled.div`
     margin-left: 10px;
   }
 
-  ${props => props.theme.mixins.clearfix()}
+  ${(props) => props.theme.mixins.clearfix()}
 `;
 
 const ChannelsList = styled.ul`
@@ -34,28 +34,28 @@ const ChannelsList = styled.ul`
   padding-left: 0;
   li {
     &.selected {
-      background-color: ${props => props.theme.colors.toryBlue};
+      background-color: ${(props) => props.theme.colors.toryBlue};
       &:hover,
       &:active,
       &:visited {
-        background-color: ${props => props.theme.colors.toryBlue};
+        background-color: ${(props) => props.theme.colors.toryBlue};
       }
       button {
         &:hover,
         &:active,
         &:visited {
-          background-color: ${props => props.theme.colors.toryBlue};
+          background-color: ${(props) => props.theme.colors.toryBlue};
         }
       }
     }
     margin-left: 0;
     padding-left: 0;
     button {
-      color: ${props => props.theme.colors.shadyLady};
+      color: ${(props) => props.theme.colors.shadyLady};
       font-size: 1em;
     }
 
-    ${props => props.theme.mixins.clearfix()}
+    ${(props) => props.theme.mixins.clearfix()}
   }
 `;
 
@@ -71,7 +71,7 @@ class Channels extends React.Component {
     this.handleSelectChannel = this.handleSelectChannel.bind(this);
   }
 
-  handleSelectChannel = e => {
+  handleSelectChannel = (e) => {
     const { selectItem, teamUUID, history } = this.props;
     const { currentTarget } = e;
     const uuid = currentTarget.getAttribute('uuid');
@@ -94,7 +94,7 @@ class Channels extends React.Component {
     const { isOwner, channels, activeEl, teamId } = this.props;
 
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={Themes}>
         <>
           <Wrapper>
             <Heading>
@@ -106,7 +106,7 @@ class Channels extends React.Component {
               )}
             </Heading>
             <ChannelsList>
-              {channels.map(el => (
+              {channels.map((el) => (
                 <li
                   className={
                     activeEl === `${el.uuid}` ? 'channels-list__item selected' : 'channels-list__item'
@@ -120,7 +120,7 @@ class Channels extends React.Component {
                     uuid={el.uuid}
                     name={el.name}
                     teamid={teamId}
-                    onClick={e => this.handleSelectChannel(e)}
+                    onClick={(e) => this.handleSelectChannel(e)}
                   >
                     #&nbsp;
                     {el.name}

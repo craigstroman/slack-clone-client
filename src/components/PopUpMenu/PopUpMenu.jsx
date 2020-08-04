@@ -5,7 +5,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
-import theme from '../../shared/themes';
+import Themes from '../../shared/themes';
 
 const StyledTextLink = styled(Link)`
   color: ${(props) => props.theme.colors.black};
@@ -63,7 +63,7 @@ class PopUpMenu extends React.Component {
 
     return (
       <>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={Themes}>
           <Button aria-controls="settings-menu" aria-haspopup="true" onClick={(e) => this.handleOpen(e)}>
             <FontAwesomeIcon icon={faCog} className="settings-icon" />
           </Button>

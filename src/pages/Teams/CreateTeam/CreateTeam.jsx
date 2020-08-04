@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo';
 import { Button, Grid, TextField } from '@material-ui/core';
 import styled, { ThemeProvider } from 'styled-components';
 import gql from 'graphql-tag';
-import theme from '../../../shared/themes';
+import Themes from '../../../shared/themes';
 import PopUpMenu from '../../../components/PopUpMenu/PopUpMenu';
 
 const Wrapper = styled.div`
@@ -115,11 +115,11 @@ class CreateTeam extends React.Component {
   };
 
   render() {
-    const {history} = this.props;
+    const { history } = this.props;
     const { name, fieldErrors } = this.state;
 
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={Themes}>
         <Wrapper>
           <header>
             <Grid container spacing={3}>
