@@ -6,6 +6,7 @@ import { graphql } from 'react-apollo';
 import { Button, Grid, IconButton, InputAdornment, Snackbar, TextField } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { updateSubScription } from '../../apollo';
 import validateEmail from '../../shared/util/utils';
 
 const Wrapper = styled.div`
@@ -162,6 +163,13 @@ class Login extends React.Component {
         localStorage.setItem('token', token);
         localStorage.setItem('refreshToken', refreshToken);
 
+        const tokens = {
+          token: localStorage.getItem('token'),
+          refreshToken: localStorage.getItem('refreshToken'),
+        };
+
+        updateSubScription(tokens);
+
         if (teamUUID !== null) {
           history.push(`/dashboard/view/team/${teamUUID}/channel/${channelUUID}`);
         } else {
@@ -175,7 +183,6 @@ class Login extends React.Component {
 
   render() {
     const { email, password, errors, fieldErrors, hidden } = this.state;
-
     return (
       <Wrapper>
         <Content>
