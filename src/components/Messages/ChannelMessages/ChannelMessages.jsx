@@ -47,50 +47,122 @@ const Message = styled.div`
   width: 100%;
 `;
 
-const ChannelMessages = (props) => {
-  const {
-    data: { loading, messages },
-  } = props;
-
-  if (loading || typeof messages === 'undefined') {
-    return null;
+const newChannelMessageSubscription = gql`
+  subscription($channelId: Int!) {
+    newChannelMessage(channelId: $channelId) {
+      id
+      text
+      user {
+        username
+      }
+      createdAt
+    }
   }
-  return (
-    <ThemeProvider theme={Themes}>
-      <Wrapper>
-        <ul>
-          {messages.map((message, i) => {
-            const { text, user } = message;
-            const { username } = user;
+`;
 
-            const calendarStrings = {
-              lastDay: '[Yesterday at] LT',
-              sameDay: '[Today at] LT',
-              nextDay: '[Tomorrow at] LT',
-              lastWeek: 'dddd [at] LT',
-              nextWeek: 'dddd [at] LT',
-              sameElse: 'L',
-            };
+class ChannelMessages extends React.Component {
+  constructor(props) {
+    super(props);
 
-            const createdAt = new Date(parseInt(message.createdAt, 10));
+    this.subscribe = this.subscribe.bind(this);
+  }
 
-            return (
-              <li key={`${uniqid()}`}>
-                <MessageHeader>
-                  <h3>{username}</h3>
-                  <div>
-                    <Moment calendar={calendarStrings}>{createdAt}</Moment>
-                  </div>
-                </MessageHeader>
-                <Message>{text}</Message>
-              </li>
-            );
-          })}
-        </ul>
-      </Wrapper>
-    </ThemeProvider>
-  );
-};
+  componentDidMount() {
+    const { channelId } = this.props;
+
+    this.unsubscribe = this.subscribe(channelId);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { channelId } = this.props;
+
+    if (channelId !== prevProps.channelId) {
+      if (this.unsubscribe) {
+        this.unsubscribe();
+      }
+      this.unsubscribe = this.subscribe(channelId);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.unsubscribe) {
+      this.unsubscribe();
+    }
+  }
+
+  /**
+   * Subscribes a user to a channel.
+   *
+   * @param      {String}  channelId  The channel identifier
+   * @return     {Object}  The messages object.
+   */
+  subscribe = (channelId) => {
+    const { data } = this.props;
+
+    return data.subscribeToMore({
+      document: newChannelMessageSubscription,
+      variables: {
+        channelId,
+      },
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData) {
+          return prev;
+        }
+
+        return {
+          ...prev,
+
+          messages: [...prev.messages, subscriptionData.data.newChannelMessage],
+        };
+      },
+    });
+  };
+
+  render() {
+    const {
+      data: { loading, messages },
+    } = this.props;
+
+    if (loading || typeof messages === 'undefined') {
+      return null;
+    }
+
+    return (
+      <ThemeProvider theme={Themes}>
+        <Wrapper>
+          <ul>
+            {messages.map((message, i) => {
+              const { text, user } = message;
+              const { username } = user;
+
+              const calendarStrings = {
+                lastDay: '[Yesterday at] LT',
+                sameDay: '[Today at] LT',
+                nextDay: '[Tomorrow at] LT',
+                lastWeek: 'dddd [at] LT',
+                nextWeek: 'dddd [at] LT',
+                sameElse: 'L',
+              };
+              const createdAt = new Date(parseInt(message.createdAt, 10));
+
+              return (
+                <li key={`${uniqid()}`}>
+                  <MessageHeader>
+                    <h3>{username}</h3>
+                    <div>
+                      <Moment calendar={calendarStrings}>{createdAt}</Moment>
+                    </div>
+                  </MessageHeader>
+                  <Message>{text}</Message>
+                </li>
+              );
+            })}
+          </ul>
+        </Wrapper>
+      </ThemeProvider>
+    );
+  }
+}
 
 const messagesQuery = gql`
   query messagesQuery($channelId: Int!) {
@@ -106,12 +178,12 @@ const messagesQuery = gql`
 `;
 
 ChannelMessages.defaultProps = {
-  // channelId: null,
+  channelId: null,
   data: {},
 };
 
 ChannelMessages.propTypes = {
-  // channelId: PropTypes.number,
+  channelId: PropTypes.number,
   data: PropTypes.object,
 };
 
