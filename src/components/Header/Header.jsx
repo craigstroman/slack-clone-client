@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import jwt from 'jsonwebtoken';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { withRouter } from 'react-router-dom';
 import PopUpMenu from '../PopUpMenu/PopUpMenu';
 
 const Wrapper = styled.div`
@@ -63,4 +64,4 @@ Header.propTypes = {
   users: PropTypes.array,
 };
 
-export default Header;
+export default withRouter(Header);
