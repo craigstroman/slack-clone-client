@@ -12,7 +12,7 @@ const graphqlEndpoint = '/graphql';
 const subscriptionEndpoint = '/subscriptions';
 
 // Create http link
-const httpLink = createHttpLink({ uri: `http://localhost:${PORT}/${graphqlEndpoint}` });
+const httpLink = createHttpLink({ uri: `http://localhost:${PORT}${graphqlEndpoint}` });
 
 const middlewareLink = setContext(() => ({
   headers: {
@@ -22,12 +22,11 @@ const middlewareLink = setContext(() => ({
 }));
 
 const afterwareLink = new ApolloLink((operation, forward) => {
-  // eslint-disable-line arrow-body-style
   return forward(operation).map((response) => {
-    console.log('response: ', response);
     const {
       response: { headers },
     } = operation.getContext();
+
     if (headers) {
       const token = headers.get('x-token');
       const refreshToken = headers.get('x-refresh-token');
@@ -94,7 +93,6 @@ const splitLink = split(
     return kind === 'OperationDefinition' && operation === 'subscription';
   },
   wsLink,
-  // httpLink,
   httpLinkWithMiddleware,
 );
 
@@ -120,8 +118,6 @@ const client = new ApolloClient({
           console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
         );
       if (networkError) {
-        console.log('inside here: ');
-        console.log('stringify: ', JSON.stringify(networkError));
         console.log(`[Network error]: ${networkError}`);
       }
     }),
