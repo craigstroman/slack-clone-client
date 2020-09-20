@@ -43,7 +43,7 @@ const Header = (props) => {
           {match.params.channelId && <FontAwesomeIcon icon={faUserAlt} />}
         </Grid>
         <Grid item xs={6} style={{ textAlign: 'right' }}>
-          <PopUpMenu history={history} />
+          <PopUpMenu />
         </Grid>
       </Grid>
     </Wrapper>
