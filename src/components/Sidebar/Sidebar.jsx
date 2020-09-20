@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'react-apollo';
 import styled, { ThemeProvider } from 'styled-components';
-import { IconButton } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
-import gql from 'graphql-tag';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import Channels from '../Channels/Channels';
 import Themes from '../../shared/themes';
 
