@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 import { Button, Menu, MenuItem } from '@material-ui/core';
@@ -95,4 +95,4 @@ PopUpMenu.propTypes = {
   history: PropTypes.object,
 };
 
-export default PopUpMenu;
+export default withRouter(PopUpMenu);
