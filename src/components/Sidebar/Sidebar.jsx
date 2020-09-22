@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
+import { IconButton } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
 import Channels from '../Channels/Channels';
+import InvitePeople from '../InvitePeople/InvitePeople';
 import Themes from '../../shared/themes';
 
 const Wrapper = styled.div`
@@ -191,7 +193,23 @@ class Sidebar extends React.Component {
             <>
               <div>Direct Messages</div>
             </>
-            {isOwner && <div>Invite people</div>}
+            {isOwner && (
+              <Invite>
+                <h3>Invite People To Join</h3>
+                <IconButton
+                  type="button"
+                  className="sidebar-heading__action"
+                  onClick={this.handleOpenInvitePeople}
+                >
+                  <FontAwesomeIcon icon={faPlusCircle} />
+                </IconButton>
+              </Invite>
+            )}
+            <InvitePeople
+              isOpen={invitePeopleModal}
+              teamId={teamId}
+              handleCloseInvitePeople={() => this.handleCloseInvitePeople()}
+            />
           </section>
         </Wrapper>
       </ThemeProvider>
