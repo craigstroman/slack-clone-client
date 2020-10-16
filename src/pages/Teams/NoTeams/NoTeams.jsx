@@ -30,7 +30,7 @@ const NoTeams = (props) => (
     <main>
       <Grid container spacing={3}>
         <Grid item xs={12} style={{ textAlign: 'right' }}>
-          <PopUpMenu {...props} />
+          <PopUpMenu />
         </Grid>
         <Grid item xs={12}>
           You have no teams. &nbsp; You either need to <a href="/create-team">create a team</a>&nbsp; or be
