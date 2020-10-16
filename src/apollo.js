@@ -8,11 +8,12 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
 const PORT = 9091;
+const host = process.env.NODE_ENV === 'development' ? 'localhost' : process.env.HOST;
 const graphqlEndpoint = '/graphql';
 const subscriptionEndpoint = '/subscriptions';
 
 // Create http link
-const httpLink = createHttpLink({ uri: `http://localhost:${PORT}${graphqlEndpoint}` });
+const httpLink = createHttpLink({ uri: `http://${host}:${PORT}${graphqlEndpoint}` });
 
 const middlewareLink = setContext(() => ({
   headers: {
@@ -48,7 +49,7 @@ const httpLinkWithMiddleware = afterwareLink.concat(middlewareLink.concat(httpLi
 
 // Create WebSocket link2
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:${PORT}${subscriptionEndpoint}`,
+  uri: `ws://${host}:${PORT}${subscriptionEndpoint}`,
   options: {
     reconnect: true,
     connectionParams: () => {
