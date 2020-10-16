@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import styled, { ThemeProvider } from 'styled-components';
@@ -279,4 +280,4 @@ Dashboard.propTypes = {
   userId: PropTypes.number,
 };
 
-export default graphql(meQuery, { options: { fetchPolicy: 'network-only' } })(Dashboard);
+export default graphql(meQuery, { options: { fetchPolicy: 'network-only' } })(withRouter(Dashboard));
