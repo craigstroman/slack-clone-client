@@ -41,7 +41,7 @@ const ViewTeam = (props) => {
   return (
     <ThemeProvider theme={Themes}>
       <Wrapper>
-        <Dashboard me={me} team={team} teamId={team.id} userId={me.id} {...props} />
+        <Dashboard me={me} team={team} teamId={team.id} userId={me.id} />
       </Wrapper>
     </ThemeProvider>
   );
