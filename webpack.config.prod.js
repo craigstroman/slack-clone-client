@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const filePath = path.join(__dirname, './public/js/');
 const fileName = 'main.min.js';
@@ -83,5 +84,6 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
+    new Dotenv(),
   ],
 }
