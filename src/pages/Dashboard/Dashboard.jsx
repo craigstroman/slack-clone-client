@@ -210,7 +210,7 @@ class Dashboard extends React.Component {
           <main>
             <Content>
               <header>
-                <Header channels={channels} users={teamMembers} />
+                <Header channels={channels} users={teamMembers} teamName={name} />
               </header>
               <>
                 {match.params.channelId && selectedChannelId !== null && (

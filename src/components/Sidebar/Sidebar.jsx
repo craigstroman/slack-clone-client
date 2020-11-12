@@ -190,9 +190,6 @@ class Sidebar extends React.Component {
                 history={history}
               />
             </>
-            <>
-              <div>Direct Messages</div>
-            </>
             {isOwner && (
               <Invite>
                 <h3>Invite People To Join</h3>
