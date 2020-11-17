@@ -9,13 +9,13 @@ import {
   Grid,
   IconButton,
 } from '@material-ui/core';
-import styled, { ThemeProvider } from 'styled-components';
 import jwt from 'jsonwebtoken';
-import uniqid from 'uniqid';
+import uniqid farom 'uniqid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUserAlt, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router-dom';
-import StyledIcons from '../UI/Status/Status';
+import { Wrapper, ModalContent } from '../../shared/styled/components/Header/Header';
+import { OfflineIcon, OnlineIcon } from '../../shared/styled/components/Status/Status';
 import PopUpMenu from '../PopUpMenu/PopUpMenu';
 import Modal from '../UI/Modal/Modal';
 
@@ -28,24 +28,6 @@ import Modal from '../UI/Modal/Modal';
 // click on icon and show status of users to weather or not they are active.
 
 // TODO: Look at old slack clone code to make sure I'm not missing anything on the server side that connects channel with members in the database.
-
-// TODO: Figure out if I'm going to use React Material icons or Font Awesome for status icons and create a component within UI if using Font Awesome to organize it.
-
-const Wrapper = styled.div`
-  height: 10%;
-  margin-left: 10px;
-  margin-right: 10px;
-`;
-
-const ModalContent = styled.div`
-  height: 400px;
-  overflow: scroll-y;
-  width: 500px;
-  svg {
-    font-size: inherit;
-  }
-`;
-
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -116,7 +98,12 @@ class Header extends React.Component {
             <ModalContent>
               {users.map((el, i) => (
                 <>
-                  <div key={uniqid()}>{el.username}</div>
+                  <div key={uniqid()}>
+                    {el.username}
+                    <OnlineIcon>
+                      <FontAwesomeIcon icon={faCircle} className="user-status" />
+                    </OnlineIcon>
+                  </div>
                 </>
               ))}
             </ModalContent>
