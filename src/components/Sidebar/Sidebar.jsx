@@ -1,67 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { IconButton } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { Wrapper, Header, User, Invite } from '../../shared/styled/components/Sidebar/Sidebar';
 import Channels from '../Channels/Channels';
 import InvitePeople from '../InvitePeople/InvitePeople';
 import Themes from '../../shared/themes';
-
-const Wrapper = styled.div`
-  padding-top: 15px;
-`;
-
-const Header = styled.header`
-  margin-bottom: 20px;
-  h2 {
-    color: ${(props) => props.theme.colors.white};
-    text-align: center;
-  }
-
-  ${(props) => props.theme.mixins.clearfix()}
-`;
-
-const User = styled.div`
-  margin: 0 auto;
-  text-align: center;
-  h3 {
-    color: ${(props) => props.theme.colors.white};
-    display: inline-block;
-    text-align: center;
-  }
-  svg {
-    color: ${(props) => props.theme.colors.jungleGreen};
-    font-size: 0.85em;
-    margin-right: 5px;
-  }
-
-  ${(props) => props.theme.mixins.clearfix()}
-`;
-
-const Invite = styled.section`
-  color: ${(props) => props.theme.colors.shadyLady};
-  display: block;
-  height: 40px;
-  width: 100%;
-  h3,
-  button {
-    float: left;
-  }
-
-  h3 {
-    margin-left: 10px;
-    padding-top: 8px;
-  }
-
-  button {
-    bottom: 13px;
-    color: ${(props) => props.theme.colors.shadyLady};
-    margin-left: 5px;
-  }
-
-  ${(props) => props.theme.mixins.clearfix()}
-`;
 
 class Sidebar extends React.Component {
   constructor(props) {
