@@ -14,3 +14,15 @@ export const ModalContent = styled.div`
     font-size: inherit;
   }
 `;
+
+export const ListContent = styled.ul`
+  list-style-type: none;
+  li {
+    margin-bottom: 10px;
+    svg {
+      color: ${(props) => props.theme.colors.jungleGreen};
+      font-size: 0.85em;
+      margin-right: 5px;
+    }
+  }
+`;
