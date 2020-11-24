@@ -14,7 +14,7 @@ export const ListContent = styled.ul`
     svg {
       color: ${(props) => props.theme.colors.jungleGreen};
       font-size: 0.85em;
-      margin-right: 5px;
+      margin-left: 5px;
     }
   }
 `;
