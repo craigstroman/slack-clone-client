@@ -1,18 +1,10 @@
 import styled from 'styled-components';
+import { Dialog } from '@material-ui/core';
 
 export const Wrapper = styled.div`
   height: 10%;
   margin-left: 10px;
   margin-right: 10px;
-`;
-
-export const ModalContent = styled.div`
-  height: 400px;
-  overflow: scroll-y;
-  width: 500px;
-  svg {
-    font-size: inherit;
-  }
 `;
 
 export const ListContent = styled.ul`
@@ -24,5 +16,20 @@ export const ListContent = styled.ul`
       font-size: 0.85em;
       margin-right: 5px;
     }
+  }
+`;
+
+export const StyledDialog = styled(Dialog)`
+  height: 400px;
+  margin: 0 auto;
+  overflow: scroll-y;
+  width: 500px;
+  .MuiDialogTitle-root {
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 1rem;
+  }
+  .MuiDialogActions-root {
+    border-top: 1px solid #dee2e6;
+    margin-top: 1rem;
   }
 `;
