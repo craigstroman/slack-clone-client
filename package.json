@@ -72,6 +72,7 @@
     "react-dom": "^16.11.0",
     "react-moment": "^0.9.7",
     "react-router-dom": "^5.1.2",
+    "react-uuid": "^1.0.2",
     "styled-components": "^4.4.1",
     "subscriptions-transport-ws": "^0.9.17",
     "uniqid": "^5.2.0"
