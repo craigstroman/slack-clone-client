@@ -1,36 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Grid,
-  IconButton,
-} from '@material-ui/core';
+import { Button, DialogActions, DialogContent, DialogTitle, Grid, IconButton } from '@material-ui/core';
 import jwt from 'jsonwebtoken';
 import uuid from 'react-uuid';
-import gql from 'graphql-tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserAlt, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router-dom';
-import { Wrapper, ModalContent, ListContent } from '../../shared/styled/components/Header/Header';
+import { ListContent, StyledDialog, Wrapper } from '../../shared/styled/components/Header/Header';
 import PopUpMenu from '../PopUpMenu/PopUpMenu';
-import Modal from '../UI/Modal/Modal';
-
-const lastSeenSubscription = gql`
-  subscription($username: String!, $lastSeen: String!) {
-    newChannelMessage(username: $username, lastSeen: $lastSeen) {
-      id
-      text
-      user {
-        usernamed
-      }
-      createdAt
-    }
-  }
-`;
 
 class Header extends React.Component {
   constructor(props) {
@@ -57,8 +34,6 @@ class Header extends React.Component {
     const { history, match, channels, teamName, users } = this.props;
     const token = jwt.decode(localStorage.getItem('token'));
     let title = '';
-
-    console.log('users: ', users);
 
     if (match.params.channelId) {
       const channel = channels.filter((el) => el.uuid === match.params.channelId);
@@ -96,24 +71,22 @@ class Header extends React.Component {
             <PopUpMenu />
           </Grid>
         </Grid>
-        <Modal isOpen={showUserModal} fullWidth={true} handleClose={this.handleCloseUserModal}>
-          <DialogTitle>{teamName} Users</DialogTitle>
+        <StyledDialog open={showUserModal} maxWidth="md" fullWidth={true} onClose={this.handleCloseUserModal}>
+          <DialogTitle id="form-dialog-title">{teamName} Users</DialogTitle>
           <DialogContent>
-            <ModalContent>
-              <ListContent>
-                {users.map((el, i) => (
-                  <li key={uuid()}>
-                    {el.username}
-                    <FontAwesomeIcon icon={faCircle} className="user-status" />
-                  </li>
-                ))}
-              </ListContent>
-            </ModalContent>
+            <ListContent>
+              {users.map((el, i) => (
+                <li key={uuid()}>
+                  {el.username}
+                  <FontAwesomeIcon icon={faCircle} className="user-status" />
+                </li>
+              ))}
+            </ListContent>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => this.handleCloseUserModal()}>Close</Button>
           </DialogActions>
-        </Modal>
+        </StyledDialog>
       </Wrapper>
     );
   }
