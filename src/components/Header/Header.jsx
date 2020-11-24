@@ -10,24 +10,28 @@ import {
   IconButton,
 } from '@material-ui/core';
 import jwt from 'jsonwebtoken';
-import uniqid farom 'uniqid';
+import uuid from 'react-uuid';
+import gql from 'graphql-tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserAlt, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router-dom';
-import { Wrapper, ModalContent } from '../../shared/styled/components/Header/Header';
-import { OfflineIcon, OnlineIcon } from '../../shared/styled/components/Status/Status';
+import { Wrapper, ModalContent, ListContent } from '../../shared/styled/components/Header/Header';
 import PopUpMenu from '../PopUpMenu/PopUpMenu';
 import Modal from '../UI/Modal/Modal';
 
-// TODO: Automatically show list of users for a team when a user clicks the faUserAlt icon in a modal dialog like Slack does
-// then work on making the last_seen work to show if a user is active or not.
+const lastSeenSubscription = gql`
+  subscription($username: String!, $lastSeen: String!) {
+    newChannelMessage(username: $username, lastSeen: $lastSeen) {
+      id
+      text
+      user {
+        usernamed
+      }
+      createdAt
+    }
+  }
+`;
 
-// TODO: Also change InvitePeople and Channels components to using modal component but keep components files so that code is still organized.
-
-// TODO: Figure out why channel member table is empty and continue work on showing channel members like with Slack when you
-// click on icon and show status of users to weather or not they are active.
-
-// TODO: Look at old slack clone code to make sure I'm not missing anything on the server side that connects channel with members in the database.
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -96,16 +100,14 @@ class Header extends React.Component {
           <DialogTitle>{teamName} Users</DialogTitle>
           <DialogContent>
             <ModalContent>
-              {users.map((el, i) => (
-                <>
-                  <div key={uniqid()}>
+              <ListContent>
+                {users.map((el, i) => (
+                  <li key={uuid()}>
                     {el.username}
-                    <OnlineIcon>
-                      <FontAwesomeIcon icon={faCircle} className="user-status" />
-                    </OnlineIcon>
-                  </div>
-                </>
-              ))}
+                    <FontAwesomeIcon icon={faCircle} className="user-status" />
+                  </li>
+                ))}
+              </ListContent>
             </ModalContent>
           </DialogContent>
           <DialogActions>
