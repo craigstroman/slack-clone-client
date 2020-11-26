@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import { Button, Grid, IconButton, InputAdornment, Snackbar, TextField } from '@material-ui/core';
+import { Button, Grid, IconButton, InputAdornment } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { updateSubScription } from '../../apollo';
