@@ -4,36 +4,8 @@ import { withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import { Button, Grid, TextField } from '@material-ui/core';
+import { Content, StyledTextField, Wrapper } from '../../shared/styled/pages/Register/Register';
 import validateEmail from '../../shared/util/utils';
-
-const Wrapper = styled.div`
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-`;
-
-const Content = styled.div`
-  header {
-    margin: 0 auto;
-    h1 {
-      text-align: center;
-    }
-  }
-  margin: 0 auto;
-  width: 100%;
-  form {
-    margin: 0 auto;
-    text-align: center;
-  }
-`;
-
-const StyledTextField = styled(TextField)`
-  .MuiOutlinedInput-root {
-    text-align: left;
-    width: 500px;
-  }
-`;
 
 class Register extends React.Component {
   constructor(props) {
