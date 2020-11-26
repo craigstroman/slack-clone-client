@@ -2,55 +2,14 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import { Content, Messages, SidebarWrapper, Wrapper } from '../../shared/styled/pages/Dashboard/Dashboard';
 import meQuery from '../../shared/queries/team';
 import Header from '../../components/Header/Header';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import ChannelMessages from '../../components/Messages/ChannelMessages/ChannelMessages';
 import ChannelInput from '../../components/MessageInput/ChannelInput/ChannelInput';
 import Themes from '../../shared/themes';
-
-const Wrapper = styled.div`
-  display: grid;
-  height: 100vh;
-  grid-template-columns: 250px 1fr;
-  aside {
-    display: grid;
-    grid-template-columns: 250px;
-  }
-  main {
-    display: grid;
-  }
-`;
-
-const SidebarWrapper = styled.div`
-  background-color: ${(props) => props.theme.colors.valentino};
-  grid-column: 1;
-`;
-
-const Content = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  height: 100vh;
-  header {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  section {
-    border-bottom: 1px solid ${(props) => props.theme.colors.black};
-    border-top: 1px solid ${(props) => props.theme.colors.black};
-    grid-column: 1;
-    grid-row: 2;
-  }
-  footer {
-    grid-column: 1;
-    grid-row: 3;
-  }
-`;
-
-const Messages = styled.div`
-  height: 98%;
-`;
 
 class Dashboard extends React.Component {
   constructor(props) {
