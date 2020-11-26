@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
-import styled from 'styled-components';
-import { Button, Grid, TextField } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import { Content, StyledTextField, Wrapper } from '../../shared/styled/pages/Register/Register';
 import validateEmail from '../../shared/util/utils';
 
