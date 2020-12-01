@@ -1,26 +1,12 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import styled, { ThemeProvider } from 'styled-components';
-import { Button, Menu, MenuItem } from '@material-ui/core';
+import { ThemeProvider } from 'styled-components';
+import { Button, MenuItem } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { StyledTextLink, StyledMenu } from '../../shared/styled/components/PopUpMenu/PopUpMenu';
 import Themes from '../../shared/themes';
-
-const StyledTextLink = styled(Link)`
-  color: ${(props) => props.theme.colors.black};
-  &:hover,
-  &:focus,
-  &:active {
-    color: ${(props) => props.theme.colors.black};
-  }
-`;
-
-const StyledMenu = styled(Menu)`
-  .MuiMenu-paper {
-    top: 83px !important;
-  }
-`;
 
 class PopUpMenu extends React.Component {
   constructor(props) {
