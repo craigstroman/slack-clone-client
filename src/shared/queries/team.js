@@ -5,7 +5,11 @@ const meQuery = gql`
     me {
       id
       uuid
+      firstName
+      lastName
+      phoneNumber
       username
+      email
       teams {
         id
         uuid
