@@ -13,7 +13,7 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import styled from 'styled-components';
 import normalizeErrors from '../../shared/util/normalizeErrors';
-import validateEmail from '../../shared/util/utils';
+import { validateEmail } from '../../shared/util/utils';
 
 const StyledDialog = styled(Dialog)`
   .MuiDialogTitle-root {
