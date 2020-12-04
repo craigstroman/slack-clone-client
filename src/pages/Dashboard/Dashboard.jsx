@@ -16,8 +16,6 @@ class Dashboard extends React.Component {
     super(props);
 
     this.state = {
-      // directMessagesReceived: null,
-      // filteredMessages: null,
       itemName: null,
       selectedUserId: null,
       selectedUserUUID: null,
@@ -25,7 +23,6 @@ class Dashboard extends React.Component {
       selectedChannelUUID: null,
     };
 
-    // this.subscribeToDirectMessages = this.subscribeToDirectMessages.bind(this);
     this.handleChangeItem = this.handleChangeItem.bind(this);
   }
 
@@ -45,27 +42,13 @@ class Dashboard extends React.Component {
   };
 
   componentDidUpdate = (prevProps) => {
-    const {
-      // data: { directMessages },
-      match,
-      me,
-      teamId,
-      userId,
-    } = this.props;
+    const { match, me, teamId, userId } = this.props;
     const { channelUUID, userUUID } = this.state;
     const { uuid } = me;
 
     if (prevProps.userId !== userId) {
       this.unsubscribe = this.subscribeToDirectMessages(teamId, userId);
     }
-
-    // if (Array.isArray(directMessages) && Array.isArray(prevProps.data.directMessages)) {
-    //   if (directMessages.length > prevProps.data.directMessages) {
-    //     this.setState({
-    //       directMessagesReceived: directMessages,
-    //     });
-    //   }
-    // }
 
     if (match.params.channelId) {
       const teamUUID = match.params.teamId;
@@ -222,7 +205,6 @@ class Dashboard extends React.Component {
 Dashboard.defaultProps = {
   history: {},
   match: {},
-  // data: {},
   team: {},
   me: {},
   teamId: 0,
@@ -232,11 +214,10 @@ Dashboard.defaultProps = {
 Dashboard.propTypes = {
   history: PropTypes.object,
   match: PropTypes.object,
-  // data: PropTypes.object,
   team: PropTypes.object,
   me: PropTypes.object,
   teamId: PropTypes.number,
   userId: PropTypes.number,
 };
 
-export default graphql(meQuery, { options: { fetchPolicy: 'network-only' } })(withRouter(Dashboard));
+export default withRouter(Dashboard);
