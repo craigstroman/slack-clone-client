@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { CssBaseline, Grid } from '@material-ui/core';
-import styled from 'styled-components';
 import PrivateRoute from '../../shared/util/privateRoutes';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
