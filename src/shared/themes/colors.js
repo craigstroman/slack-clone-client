@@ -16,6 +16,8 @@ const colors = {
 
   // Message colors
   scorpion: '#616061',
+
+  apple: '#388E3B',
 };
 
 export default colors;
