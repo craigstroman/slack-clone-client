@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { updateSubScription } from '../../apollo';
 import { Content, StyledSnackbar, StyledTextField, Wrapper } from '../../shared/styled/pages/Login/Login';
-import validateEmail from '../../shared/util/utils';
+import { validateEmail } from '../../shared/util/utils';
 
 class Login extends React.Component {
   constructor(props) {
