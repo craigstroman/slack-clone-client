@@ -4,7 +4,7 @@ import { withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Button, Grid } from '@material-ui/core';
 import { Content, StyledTextField, Wrapper } from '../../shared/styled/pages/Register/Register';
-import validateEmail from '../../shared/util/utils';
+import { validateEmail } from '../../shared/util/utils';
 
 class Register extends React.Component {
   constructor(props) {
