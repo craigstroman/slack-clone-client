@@ -31,7 +31,7 @@ class Header extends React.Component {
 
   render() {
     const { showUserModal } = this.state;
-    const { history, match, channels, teamName, users } = this.props;
+    const { match, me, channels, teamName, users } = this.props;
     const token = jwt.decode(localStorage.getItem('token'));
     let title = '';
 
@@ -68,7 +68,7 @@ class Header extends React.Component {
             )}
           </Grid>
           <Grid item xs={6} style={{ textAlign: 'right' }}>
-            <PopUpMenu />
+            <PopUpMenu me={me} />
           </Grid>
         </Grid>
         <StyledDialog open={showUserModal} maxWidth="md" fullWidth={true} onClose={this.handleCloseUserModal}>
@@ -94,18 +94,18 @@ class Header extends React.Component {
 
 Header.defaultProps = {
   match: {},
-  history: {},
   teamName: '',
   channels: [],
   users: [],
+  me: {},
 };
 
 Header.propTypes = {
   match: PropTypes.object,
-  history: PropTypes.object,
   teamName: PropTypes.string,
   channels: PropTypes.array,
   users: PropTypes.array,
+  me: PropTypes.object,
 };
 
 export default withRouter(Header);
