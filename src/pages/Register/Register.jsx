@@ -127,16 +127,7 @@ class Register extends React.Component {
    * @return     {Boolean}  Indicates if the form is valid or invalid.
    */
   validateForm = () => {
-    const {
-      email,
-      fieldErrors,
-      username,
-      password,
-      passwordConfirmation,
-      recaptchaVerified,
-      emailVerified,
-      usernameVerified,
-    } = this.state;
+    const { email, username, password, passwordConfirmation, emailVerified, usernameVerified } = this.state;
     const errors = {};
 
     if (!email.length) {
