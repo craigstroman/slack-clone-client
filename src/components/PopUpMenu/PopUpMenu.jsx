@@ -21,24 +21,23 @@ class PopUpMenu extends React.Component {
     };
 
     this.logout = this.logout.bind(this);
-    this.handleOpenMenu = this.handleOpenMenu.bind(this);
-    this.handleCloseMenu = this.handleCloseMenu.bind(this);
     this.handleShowCreateTeam = this.handleShowCreateTeam.bind(this);
+    this.handleMenu = this.handleMenu.bind(this);
     this.handleModal = this.handleModal.bind(this);
   }
 
-  handleOpenMenu = (e) => {
+  handleMenu = (e, status) => {
     const { currentTarget } = e;
 
-    this.setState({
-      anchorEl: currentTarget,
-    });
-  };
-
-  handleCloseMenu = () => {
-    this.setState({
-      anchorEl: null,
-    });
+    if (status === 'open') {
+      this.setState({
+        anchorEl: currentTarget,
+      });
+    } else if (status === 'close') {
+      this.setState({
+        anchorEl: null,
+      });
+    }
   };
 
   handleModal = (type, status) => {
@@ -75,7 +74,7 @@ class PopUpMenu extends React.Component {
             <Button
               aria-controls="settings-menu"
               aria-haspopup="true"
-              onClick={(e) => this.handleOpenMenu(e)}
+              onClick={(e) => this.handleMenu(e, 'open')}
             >
               <FontAwesomeIcon icon={faCog} className="settings-icon" />
             </Button>
@@ -86,16 +85,16 @@ class PopUpMenu extends React.Component {
               open={Boolean(anchorEl)}
               onClose={this.handleCloseMenu}
             >
-              <MenuItem className="settings-menu__item" onClick={this.handleCloseMenu}>
+              <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
                 <Button onClick={this.handleShowCreateTeam}>Create a Team</Button>
               </MenuItem>
-              <MenuItem className="settings-menu__item" onClick={this.handleCloseMenu}>
+              <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
                 <Button onClick={() => this.handleModal('teams', true)}>Teams</Button>
               </MenuItem>
-              <MenuItem className="settings-menu__item" onClick={this.handleCloseMenu}>
+              <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
                 <Button onClick={() => this.handleModal('settings', true)}>Edit Profile</Button>
               </MenuItem>
-              <MenuItem className="settings-menu__item" onClick={this.handleCloseMenu}>
+              <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
                 <Button onClick={this.logout}>Logout</Button>
               </MenuItem>
             </StyledMenu>
