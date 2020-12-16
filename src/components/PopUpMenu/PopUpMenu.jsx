@@ -8,6 +8,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { StyledMenu, StyledTextLink, Wrapper } from '../../shared/styled/components/PopUpMenu/PopUpMenu';
 import Teams from '../Teams/Teams';
 import EditProfile from '../EditProfile/EditProfile';
+import CreateTeam from '../CreateTeam/CreateTeam';
 import Themes from '../../shared/themes';
 
 class PopUpMenu extends React.Component {
@@ -18,6 +19,7 @@ class PopUpMenu extends React.Component {
       anchorEl: null,
       settingsModal: false,
       teamsModal: false,
+      createTeams: false,
     };
 
     this.logout = this.logout.bind(this);
@@ -45,6 +47,8 @@ class PopUpMenu extends React.Component {
       this.setState({ teamsModal: status });
     } else if (type === 'settings') {
       this.setState({ settingsModal: status });
+    } else if (type === 'create-team') {
+      this.setState({ createTeams: status });
     }
   };
 
@@ -64,7 +68,7 @@ class PopUpMenu extends React.Component {
   };
 
   render() {
-    const { anchorEl, settingsModal, teamsModal } = this.state;
+    const { anchorEl, settingsModal, teamsModal, createTeams } = this.state;
     const { me } = this.props;
 
     return (
@@ -86,7 +90,7 @@ class PopUpMenu extends React.Component {
               onClose={this.handleCloseMenu}
             >
               <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
-                <Button onClick={this.handleShowCreateTeam}>Create a Team</Button>
+                <Button onClick={() => this.handleModal('create-team', true)}>Create a Team</Button>
               </MenuItem>
               <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
                 <Button onClick={() => this.handleModal('teams', true)}>Teams</Button>
@@ -106,6 +110,10 @@ class PopUpMenu extends React.Component {
           me={me}
         />
         <Teams isOpen={teamsModal} handleCloseTeamsModal={() => this.handleModal('teams', false)} me={me} />
+        <CreateTeam
+          isOpen={createTeams}
+          handleCloseCreateTeamModal={() => this.handleModal('create-team', false)}
+        />
       </>
     );
   }
