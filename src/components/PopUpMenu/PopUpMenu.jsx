@@ -23,10 +23,8 @@ class PopUpMenu extends React.Component {
     this.logout = this.logout.bind(this);
     this.handleOpenMenu = this.handleOpenMenu.bind(this);
     this.handleCloseMenu = this.handleCloseMenu.bind(this);
-    this.handleOpenSettingsModal = this.handleOpenSettingsModal.bind(this);
-    this.handleCloseSettingsModal = this.handleCloseSettingsModal.bind(this);
-    this.handleOpenTeamsModal = this.handleOpenTeamsModal.bind(this);
-    this.handleCloseTeamsModal = this.handleCloseTeamsModal.bind(this);
+    this.handleShowCreateTeam = this.handleShowCreateTeam.bind(this);
+    this.handleModal = this.handleModal.bind(this);
   }
 
   handleOpenMenu = (e) => {
@@ -43,20 +41,18 @@ class PopUpMenu extends React.Component {
     });
   };
 
-  handleOpenSettingsModal = () => {
-    this.setState({ settingsModal: true });
+  handleModal = (type, status) => {
+    if (type === 'teams') {
+      this.setState({ teamsModal: status });
+    } else if (type === 'settings') {
+      this.setState({ settingsModal: status });
+    }
   };
 
-  handleCloseSettingsModal = () => {
-    this.setState({ settingsModal: false });
-  };
+  handleShowCreateTeam = () => {
+    const { history } = this.props;
 
-  handleOpenTeamsModal = () => {
-    this.setState({ teamsModal: true });
-  };
-
-  handleCloseTeamsModal = () => {
-    this.setState({ teamsModal: false });
+    history.push('/create-team');
   };
 
   logout = () => {
@@ -91,11 +87,13 @@ class PopUpMenu extends React.Component {
               onClose={this.handleCloseMenu}
             >
               <MenuItem className="settings-menu__item" onClick={this.handleCloseMenu}>
-                <Button onClick={this.handleOpenTeamsModal}>Teams</Button>
-                {/* <StyledTextLink to="/teams">Teams</StyledTextLink> */}
+                <Button onClick={this.handleShowCreateTeam}>Create a Team</Button>
               </MenuItem>
               <MenuItem className="settings-menu__item" onClick={this.handleCloseMenu}>
-                <Button onClick={this.handleOpenSettingsModal}>Edit Profile</Button>
+                <Button onClick={() => this.handleModal('teams', true)}>Teams</Button>
+              </MenuItem>
+              <MenuItem className="settings-menu__item" onClick={this.handleCloseMenu}>
+                <Button onClick={() => this.handleModal('settings', true)}>Edit Profile</Button>
               </MenuItem>
               <MenuItem className="settings-menu__item" onClick={this.handleCloseMenu}>
                 <Button onClick={this.logout}>Logout</Button>
@@ -105,10 +103,10 @@ class PopUpMenu extends React.Component {
         </ThemeProvider>
         <EditProfile
           isOpen={settingsModal}
-          handleCloseSettingsModal={() => this.handleCloseSettingsModal()}
+          handleCloseSettingsModal={() => this.handleModal('settings', false)}
           me={me}
         />
-        <Teams isOpen={teamsModal} handleCloseTeamsModal={() => this.handleCloseTeamsModal()} />
+        <Teams isOpen={teamsModal} handleCloseTeamsModal={() => this.handleModal('teams', false)} me={me} />
       </>
     );
   }
