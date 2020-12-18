@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, DialogContent, DialogTitle, Grid } from '@material-ui/core';
-import { StyledDialog, StyledList, StyledTextLink, Wrapper } from '../../shared/styled/components/Teams';
+import { graphql } from 'react-apollo';
+import { Button, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core';
+import {
+  StyledDialog,
+  StyledList,
+  StyledTextLink,
+  Wrapper,
+} from '../../shared/styled/components/Teams/Teams';
+import meQuery from '../../shared/queries/team';
 
 class Teams extends React.Component {
   constructor(props) {
@@ -11,7 +18,7 @@ class Teams extends React.Component {
   }
 
   /**
-   * Closes the settings modal.
+   * Closes the teams modal.
    *
    */
   handleClose = () => {
