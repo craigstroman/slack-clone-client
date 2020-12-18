@@ -69,7 +69,9 @@ class PopUpMenu extends React.Component {
 
   render() {
     const { anchorEl, settingsModal, teamsModal, createTeams } = this.state;
-    const { me } = this.props;
+    const { me, refetch } = this.props;
+
+    console.log('this.props: ', this.props);
 
     return (
       <>
@@ -113,6 +115,7 @@ class PopUpMenu extends React.Component {
         <CreateTeam
           isOpen={createTeams}
           handleCloseCreateTeamModal={() => this.handleModal('create-team', false)}
+          refetch={refetch}
         />
       </>
     );
@@ -122,11 +125,13 @@ class PopUpMenu extends React.Component {
 PopUpMenu.defaultProps = {
   history: {},
   me: {},
+  refetch: () => {},
 };
 
 PopUpMenu.propTypes = {
   history: PropTypes.object,
   me: PropTypes.object,
+  refetch: PropTypes.func,
 };
 
 export default withRouter(PopUpMenu);
