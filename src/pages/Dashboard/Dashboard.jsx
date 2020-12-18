@@ -110,7 +110,7 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { history, me, team, teamId, userId, match } = this.props;
+    const { history, me, team, teamId, userId, match, refetch } = this.props;
     const {
       directMessagesReceived,
       filteredMessages,
@@ -152,7 +152,7 @@ class Dashboard extends React.Component {
           <main>
             <Content>
               <header>
-                <Header channels={channels} users={teamMembers} teamName={name} me={me} />
+                <Header channels={channels} users={teamMembers} teamName={name} me={me} refetch={refetch} />
               </header>
               <>
                 {match.params.channelId && selectedChannelId !== null && (
@@ -207,6 +207,7 @@ Dashboard.defaultProps = {
   match: {},
   team: {},
   me: {},
+  refetch: () => {},
   teamId: 0,
   userId: 0,
 };
@@ -216,6 +217,7 @@ Dashboard.propTypes = {
   match: PropTypes.object,
   team: PropTypes.object,
   me: PropTypes.object,
+  refetch: PropTypes.func,
   teamId: PropTypes.number,
   userId: PropTypes.number,
 };
