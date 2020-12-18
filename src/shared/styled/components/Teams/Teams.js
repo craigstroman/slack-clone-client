@@ -36,4 +36,3 @@ export const StyledTextLink = styled(Link)`
     text-decoration: none;
   }
 `;
-e;
