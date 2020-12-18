@@ -15,9 +15,10 @@ const Wrapper = styled.div`
 
 const ViewTeam = (props) => {
   const {
-    data: { loading, error, me },
+    data: { loading, error, me, refetch },
     match,
   } = props;
+
   const { params } = match;
 
   if (loading) {
@@ -41,7 +42,7 @@ const ViewTeam = (props) => {
   return (
     <ThemeProvider theme={Themes}>
       <Wrapper>
-        <Dashboard me={me} team={team} teamId={team.id} userId={me.id} />
+        <Dashboard me={me} team={team} teamId={team.id} userId={me.id} refetch={refetch} />
       </Wrapper>
     </ThemeProvider>
   );
