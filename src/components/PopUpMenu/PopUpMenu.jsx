@@ -69,9 +69,7 @@ class PopUpMenu extends React.Component {
 
   render() {
     const { anchorEl, settingsModal, teamsModal, createTeams } = this.state;
-    const { me, refetch } = this.props;
-
-    console.log('this.props: ', this.props);
+    const { isOwner, me, refetch } = this.props;
 
     return (
       <>
@@ -91,9 +89,11 @@ class PopUpMenu extends React.Component {
               open={Boolean(anchorEl)}
               onClose={this.handleCloseMenu}
             >
-              <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
-                <Button onClick={() => this.handleModal('create-team', true)}>Create a Team</Button>
-              </MenuItem>
+              {isOwner && (
+                <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
+                  <Button onClick={() => this.handleModal('create-team', true)}>Create a Team</Button>
+                </MenuItem>
+              )}
               <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
                 <Button onClick={() => this.handleModal('teams', true)}>Teams</Button>
               </MenuItem>
@@ -126,12 +126,14 @@ PopUpMenu.defaultProps = {
   history: {},
   me: {},
   refetch: () => {},
+  isOwner: false,
 };
 
 PopUpMenu.propTypes = {
   history: PropTypes.object,
   me: PropTypes.object,
   refetch: PropTypes.func,
+  isOwner: PropTypes.bool,
 };
 
 export default withRouter(PopUpMenu);
