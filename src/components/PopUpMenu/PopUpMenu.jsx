@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
-import { StyledMenu, StyledTextLink, Wrapper } from '../../shared/styled/components/PopUpMenu/PopUpMenu';
+import { StyledMenu, Wrapper } from '../../shared/styled/components/PopUpMenu/PopUpMenu';
 import Teams from '../Teams/Teams';
 import EditProfile from '../EditProfile/EditProfile';
 import CreateTeam from '../CreateTeam/CreateTeam';
