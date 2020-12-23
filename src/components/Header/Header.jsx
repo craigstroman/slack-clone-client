@@ -31,7 +31,7 @@ class Header extends React.Component {
 
   render() {
     const { showUserModal } = this.state;
-    const { match, me, channels, teamName, users, refetch } = this.props;
+    const { channels, isOwner, match, me, teamName, users, refetch } = this.props;
     const token = jwt.decode(localStorage.getItem('token'));
     let title = '';
 
@@ -68,7 +68,7 @@ class Header extends React.Component {
             )}
           </Grid>
           <Grid item xs={6} style={{ textAlign: 'right' }}>
-            <PopUpMenu me={me} refetch={refetch} />
+            <PopUpMenu me={me} refetch={refetch} isOwner={isOwner} />
           </Grid>
         </Grid>
         <StyledDialog open={showUserModal} maxWidth="md" fullWidth={true} onClose={this.handleCloseUserModal}>
@@ -99,6 +99,7 @@ Header.defaultProps = {
   users: [],
   me: {},
   refetch: () => {},
+  isOwner: false,
 };
 
 Header.propTypes = {
@@ -108,6 +109,7 @@ Header.propTypes = {
   users: PropTypes.array,
   me: PropTypes.object,
   refetch: PropTypes.func,
+  isOwner: PropTypes.bool,
 };
 
 export default withRouter(Header);
