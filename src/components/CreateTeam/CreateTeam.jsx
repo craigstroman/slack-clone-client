@@ -60,7 +60,7 @@ class CreateTeams extends React.Component {
   };
 
   /**
-   * Closes the settings modal.
+   * Closes the create team modal.
    *
    */
   handleClose = () => {
