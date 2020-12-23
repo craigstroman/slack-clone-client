@@ -1,21 +1,9 @@
-import { Link } from 'react-router-dom';
 import { Menu } from '@material-ui/core';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   ul {
     top: 80px;
-  }
-`;
-
-export const StyledTextLink = styled(Link)`
-  color: ${(props) => props.theme.colors.black};
-  text-decoration: none;
-  &:hover,
-  &:focus,
-  &:active {
-    color: ${(props) => props.theme.colors.black};
-    text-decoration: underline;
   }
 `;
 
