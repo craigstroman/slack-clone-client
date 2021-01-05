@@ -11,6 +11,10 @@ import EditProfile from '../EditProfile/EditProfile';
 import CreateTeam from '../CreateTeam/CreateTeam';
 import Themes from '../../shared/themes';
 
+// TODO: Continue working on making it so on the teams database it adds the user who creates a team when creating.
+// Then change team resolver so that a team is only unique based on if the same user who's the team owner has one.
+// Look at using members table for this because that has who a admin of a team is.
+
 class PopUpMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -89,11 +93,9 @@ class PopUpMenu extends React.Component {
               open={Boolean(anchorEl)}
               onClose={this.handleCloseMenu}
             >
-              {isOwner && (
-                <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
-                  <Button onClick={() => this.handleModal('create-team', true)}>Create a Team</Button>
-                </MenuItem>
-              )}
+              <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
+                <Button onClick={() => this.handleModal('create-team', true)}>Create a Team</Button>
+              </MenuItem>
               <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
                 <Button onClick={() => this.handleModal('teams', true)}>Teams</Button>
               </MenuItem>
