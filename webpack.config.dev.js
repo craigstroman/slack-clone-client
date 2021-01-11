@@ -2,8 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
-// TODO: Figure out why hot reloading is not working with this setup.
-
 const nodeEnv = process.env.NODE_ENV;
 const filePath = path.join(__dirname, './public/js/');
 const fileName = 'bundle.js';
