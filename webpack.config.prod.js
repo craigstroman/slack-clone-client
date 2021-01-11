@@ -1,9 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const { faLeaf } = require('@fortawesome/free-solid-svg-icons');
 
-const filePath = path.join(__dirname, './public/js/');
 const fileName = 'main.min.js';
 const PATHS = {
   src: path.join(__dirname, './src/'),
@@ -31,8 +31,14 @@ module.exports = {
 
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
         cache: true,
+        parallel: true,
+        terserOptions: {
+          compress: true,
+          emca: 6,
+          mangle: true,
+        },
         sourceMap: false,
       }),
     ],
@@ -75,7 +81,7 @@ module.exports = {
           },
         ],
       },
-    ]
+    ],
   },
 
   plugins: [
@@ -86,4 +92,4 @@ module.exports = {
     }),
     new Dotenv(),
   ],
-}
+};
