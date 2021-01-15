@@ -1,31 +1,32 @@
 import styled from 'styled-components';
-import { TextField } from '@material-ui/core';
 
-export const Wrapper = styled.div`
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-`;
-
-export const Content = styled.div`
-  header {
-    margin: 0 auto;
-    h1 {
-      text-align: center;
-    }
-  }
-  margin: 0 auto;
-  width: 100%;
-  form {
-    margin: 0 auto;
+export const Header = styled.header`
+  h1 {
     text-align: center;
   }
 `;
 
-export const StyledTextField = styled(TextField)`
-  .MuiOutlinedInput-root {
-    text-align: left;
-    width: 500px;
+export const Content = styled.main`
+  margin: 0 auto;
+  width: 100%;
+  .row {
+    margin: 0 auto;
+    div {
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+  form {
+    margin: 0 auto;
+    text-align: center;
+    .row {
+      margin: 15px auto 15px auto;
+      div {
+        margin: 0 auto;
+        .invalid-feedback {
+          text-align: left;
+        }
+      }
+    }
   }
 `;
