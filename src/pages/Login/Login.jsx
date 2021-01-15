@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import { Button, Grid, IconButton, InputAdornment } from '@material-ui/core';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { updateSubScription } from '../../apollo';
-import { Content, StyledSnackbar, StyledTextField, Wrapper } from '../../shared/styled/pages/Login/Login';
+import { Header, Content } from '../../shared/styled/pages/Login/Login';
 import { validateEmail } from '../../shared/util/utils';
 
 class Login extends React.Component {
@@ -151,89 +151,73 @@ class Login extends React.Component {
 
   render() {
     const { email, password, errors, fieldErrors, hidden } = this.state;
+
     return (
-      <Wrapper>
+      <Container>
+        <Header>
+          <Row>
+            <Col md={12}>
+              <h1>Slack Clone</h1>
+              <hr />
+            </Col>
+          </Row>
+        </Header>
         <Content>
-          <header>
-            <h1 style={{ textAlign: 'center' }}>Slack Clone</h1>
-            <hr />
-          </header>
-          <main>
-            <form>
-              {errors && (
-                <StyledSnackbar
-                  open={errors}
-                  message="Invalid email or password."
-                  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          <Form>
+            <Row>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  name="email"
+                  placeholder="Email *"
+                  onChange={(e) => this.handleChange(e)}
+                  onKeyPress={(e) => this.handleKeyPress(e)}
+                  onBlur={this.validateForm}
+                  value={email}
+                  isInvalid={fieldErrors.email}
+                  required
                 />
-              )}
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="Email *"
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => this.handleChange(e)}
-                    onBlur={this.validateForm}
-                    onKeyPress={(e) => this.handleKeyPress(e)}
-                    error={!fieldErrors.email === false}
-                    helperText={fieldErrors.email}
-                    value={email}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="Password *"
+                <Form.Control.Feedback type="invalid">{fieldErrors.email}</Form.Control.Feedback>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <div className="input-group">
+                  <Form.Control
                     type={hidden ? 'password' : 'text'}
                     name="password"
-                    autoComplete="current-password"
-                    margin="normal"
-                    variant="outlined"
+                    placeholder="Password *"
                     onChange={(e) => this.handleChange(e)}
-                    onBlur={this.validateForm}
                     onKeyPress={(e) => this.handleKeyPress(e)}
-                    error={!fieldErrors.password === false}
-                    helperText={fieldErrors.password}
                     value={password}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            title={hidden ? 'Show Password' : 'Hide Password'}
-                            onClick={this.togglePasswordMask}
-                          >
-                            <FontAwesomeIcon
-                              icon={hidden ? faEye : faEyeSlash}
-                              style={{ cursor: 'pointer' }}
-                            />
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
+                    isInvalid={fieldErrors.password}
+                    required
                   />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    type="button"
-                    variant="contained"
-                    color="primary"
-                    onClick={(e) => this.handleSubmit(e)}
-                  >
-                    Login
-                  </Button>
-                </Grid>
-                <Grid item lg={12} style={{ textAlign: 'center' }}>
-                  Not a registered user?&nbsp;
-                  <a href="/register">Sign Up</a>
-                </Grid>
-              </Grid>
-            </form>
-          </main>
+                  <span className="input-group-addon">
+                    <Button variant="secondary" onClick={this.togglePasswordMask}>
+                      <FontAwesomeIcon icon={hidden ? faEye : faEyeSlash} style={{ cursor: 'pointer' }} />
+                    </Button>
+                  </span>
+                  <Form.Control.Feedback type="invalid">{fieldErrors.password}</Form.Control.Feedback>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Button variant="primary" onClick={(e) => this.handleSubmit(e)}>
+                  Login
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+          <Row>
+            <Col md={6}>
+              Not a registered user?&nbsp;
+              <a href="/register">Sign Up</a>
+            </Col>
+          </Row>
         </Content>
-      </Wrapper>
+      </Container>
     );
   }
 }

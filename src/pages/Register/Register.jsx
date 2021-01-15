@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Button, Grid } from '@material-ui/core';
-import { Content, StyledTextField, Wrapper } from '../../shared/styled/pages/Register/Register';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Header, Content } from '../../shared/styled/pages/Register/Register';
 import { validateEmail } from '../../shared/util/utils';
 
 class Register extends React.Component {
@@ -234,95 +234,89 @@ class Register extends React.Component {
     } = this.state;
 
     return (
-      <Wrapper>
+      <Container>
+        <Header>
+          <Row>
+            <Col md={12}>
+              <h1>Slack Clone - Register</h1>
+              <hr />
+            </Col>
+          </Row>
+        </Header>
         <Content>
-          <header>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <h1>Slack Clone - Register</h1>
-                <hr />
-              </Grid>
-            </Grid>
-          </header>
-          <main>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="Email *"
-                    type="text"
-                    name="email"
-                    autoComplete="email"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => {
-                      this.handleChange(e);
-                      this.verifyEmail(e);
-                    }}
-                    onBlur={this.validateForm}
-                    error={!fieldErrors.email === false || emailVerified === true}
-                    helperText={fieldErrors.email}
-                    value={email}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="Username *"
-                    type="text"
-                    name="username"
-                    autoComplete="username"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => {
-                      this.handleChange(e);
-                      this.verifyUser(e);
-                    }}
-                    onBlur={this.validateForm}
-                    error={!fieldErrors.username === false || usernameVerified === true}
-                    helperText={fieldErrors.username}
-                    value={username}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="Password *"
-                    type="password"
-                    name="password"
-                    autoComplete="password"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => this.handleChange(e)}
-                    onBlur={this.validateForm}
-                    error={!fieldErrors.password === false}
-                    helperText={fieldErrors.password}
-                    value={password}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="Password Confirmation *"
-                    type="password"
-                    name="passwordConfirmation"
-                    autoComplete="passwordConfirmation"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => this.handleChange(e)}
-                    onBlur={this.validateForm}
-                    error={!fieldErrors.passwordConfirmation === false}
-                    helperText={fieldErrors.passwordConfirmation}
-                    value={passwordConfirmation}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button type="button" variant="contained" color="primary" onClick={this.handleSubmit}>
-                    Register
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </main>
+          <Form>
+            <Row>
+              <Col md={6}>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  placeholder="Email *"
+                  value={email}
+                  required
+                  onChange={(e) => this.handleChange(e)}
+                  onBlur={this.validateForm}
+                  isInvalid={!fieldErrors.email === false || emailVerified === true}
+                />
+                <Form.Control.Feedback type="invalid">{fieldErrors.email}</Form.Control.Feedback>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  name="username"
+                  placeholder="Username *"
+                  value={username}
+                  required
+                  onChange={(e) => this.handleChange(e)}
+                  onBlur={this.validateForm}
+                  isInvalid={!fieldErrors.username === false || usernameVerified === true}
+                />
+                <Form.Control.Feedback type="invalid">{fieldErrors.username}</Form.Control.Feedback>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  placeholder="Password *"
+                  value={password}
+                  required
+                  onChange={(e) => this.handleChange(e)}
+                  onBlur={this.validateForm}
+                  isInvalid={!fieldErrors.password === false}
+                />
+                <Form.Control.Feedback type="invalid">{fieldErrors.password}</Form.Control.Feedback>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Form.Control
+                  type="password"
+                  name="passwordConfirmation"
+                  placeholder="Password Confirmation *"
+                  value={passwordConfirmation}
+                  required
+                  onChange={(e) => this.handleChange(e)}
+                  onBlur={this.validateForm}
+                  isInvalid={fieldErrors.passwordConfirmation}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {fieldErrors.passwordConfirmation}
+                </Form.Control.Feedback>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Button variant="primary" onClick={(e) => this.handleSubmit(e)}>
+                  Register
+                </Button>
+              </Col>
+            </Row>
+          </Form>
         </Content>
-      </Wrapper>
+      </Container>
     );
   }
 }
