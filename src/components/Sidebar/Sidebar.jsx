@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import { IconButton } from '@material-ui/core';
+import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
-import { Wrapper, Header, User, Invite } from '../../shared/styled/components/Sidebar/Sidebar';
+import {
+  Wrapper,
+  Header,
+  User,
+  InviteBlock,
+  ChannelsBlock,
+} from '../../shared/styled/components/Sidebar/Sidebar';
 import Channels from '../Channels/Channels';
 import InvitePeople from '../InvitePeople/InvitePeople';
+import AddChannel from '../AddChannel/AddChannel';
 import Themes from '../../shared/themes';
 
 class Sidebar extends React.Component {
@@ -16,13 +23,13 @@ class Sidebar extends React.Component {
     this.state = {
       activeEl: '',
       invitePeopleModal: false,
+      addChannelModal: false,
       user: null,
     };
 
     this.handleSelectItem = this.handleSelectItem.bind(this);
-    this.handleOpenInvitePeople = this.handleOpenInvitePeople.bind(this);
-    this.handleCloseInvitePeople = this.handleCloseInvitePeople.bind(this);
     this.handleGetUser = this.handleGetUser.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   /**
@@ -83,20 +90,11 @@ class Sidebar extends React.Component {
     });
   };
 
-  /**
-   * Opens the invite people modal.
-   *
-   */
-  handleOpenInvitePeople = () => {
-    this.setState({ invitePeopleModal: true });
-  };
+  toggleModal = (type, status) => {
+    const newState = {};
+    newState[type] = status;
 
-  /**
-   * Closes the invite people modal.
-   *
-   */
-  handleCloseInvitePeople = () => {
-    this.setState({ invitePeopleModal: false });
+    this.setState(newState);
   };
 
   render() {
@@ -112,7 +110,7 @@ class Sidebar extends React.Component {
       currentUser,
       isOwner,
     } = this.props;
-    const { activeEl, invitePeopleModal, user } = this.state;
+    const { activeEl, invitePeopleModal, addChannelModal, user } = this.state;
 
     return (
       <ThemeProvider theme={Themes}>
@@ -125,9 +123,14 @@ class Sidebar extends React.Component {
             </User>
           </Header>
           <section>
-            <>
+            <ChannelsBlock>
+              <h5>Channels</h5>
+              {isOwner && (
+                <Button variant="link" onClick={() => this.toggleModal('addChannelModal', true)}>
+                  <FontAwesomeIcon icon={faPlusCircle} />
+                </Button>
+              )}
               <Channels
-                isOwner={isOwner}
                 channels={channels}
                 activeEl={activeEl}
                 teamId={teamId}
@@ -135,23 +138,28 @@ class Sidebar extends React.Component {
                 selectItem={this.handleSelectItem}
                 history={history}
               />
-            </>
+            </ChannelsBlock>
             {isOwner && (
-              <Invite>
-                <h3>Invite People To Join</h3>
-                <IconButton
-                  type="button"
+              <InviteBlock>
+                <h5>Invite People To Join</h5>
+                <Button
+                  variant="link"
                   className="sidebar-heading__action"
-                  onClick={this.handleOpenInvitePeople}
+                  onClick={() => this.toggleModal('invitePeopleModal', true)}
                 >
                   <FontAwesomeIcon icon={faPlusCircle} />
-                </IconButton>
-              </Invite>
+                </Button>
+              </InviteBlock>
             )}
             <InvitePeople
               isOpen={invitePeopleModal}
               teamId={teamId}
-              handleCloseInvitePeople={() => this.handleCloseInvitePeople()}
+              handleCloseInvitePeople={() => this.toggleModal('invitePeopleModal', false)}
+            />
+            <AddChannel
+              isOpen={addChannelModal}
+              teamId={teamId}
+              handleCloseAddChannel={() => this.toggleModal('addChannelModal', false)}
             />
           </section>
         </Wrapper>
