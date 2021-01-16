@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { updateSubScription } from '../../apollo';
@@ -163,7 +163,8 @@ class Login extends React.Component {
           </Row>
         </Header>
         <Content>
-          <Form>
+          <Form noValidate onSubmit={(e) => this.handleSubmit(e)}>
+            {errors && <Alert variant="danger">Invalid email or password.</Alert>}
             <Row>
               <Col md={6}>
                 <Form.Control
@@ -189,6 +190,7 @@ class Login extends React.Component {
                     placeholder="Password *"
                     onChange={(e) => this.handleChange(e)}
                     onKeyPress={(e) => this.handleKeyPress(e)}
+                    onBlur={this.validateForm}
                     value={password}
                     isInvalid={fieldErrors.password}
                     required
@@ -204,18 +206,18 @@ class Login extends React.Component {
             </Row>
             <Row>
               <Col md={6}>
-                <Button variant="primary" onClick={(e) => this.handleSubmit(e)}>
+                <Button type="submit" variant="primary">
                   Login
                 </Button>
               </Col>
             </Row>
+            <Row>
+              <Col md={6}>
+                Not a registered user?&nbsp;
+                <a href="/register">Sign Up</a>
+              </Col>
+            </Row>
           </Form>
-          <Row>
-            <Col md={6}>
-              Not a registered user?&nbsp;
-              <a href="/register">Sign Up</a>
-            </Col>
-          </Row>
         </Content>
       </Container>
     );
