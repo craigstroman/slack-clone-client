@@ -1,22 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import { Button, IconButton } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { ChannelsList, Heading, Wrapper } from '../../shared/styled/components/Channels/Channels';
-import AddChannel from '../AddChannel/AddChannel';
+import { Button } from '@material-ui/core';
+import { ChannelsList, Wrapper } from '../../shared/styled/components/Channels/Channels';
 import Themes from '../../shared/themes';
 
 class Channels extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      addChannelModal: false,
-    };
-
-    this.handleOpenAddChannel = this.handleOpenAddChannel.bind(this);
     this.handleSelectChannel = this.handleSelectChannel.bind(this);
   }
 
@@ -30,30 +22,13 @@ class Channels extends React.Component {
     selectItem(e);
   };
 
-  handleOpenAddChannel = () => {
-    this.setState({ addChannelModal: true });
-  };
-
-  handleCloseAddChannel = () => {
-    this.setState({ addChannelModal: false });
-  };
-
   render() {
-    const { addChannelModal } = this.state;
-    const { isOwner, channels, activeEl, teamId } = this.props;
+    const { channels, activeEl, teamId } = this.props;
 
     return (
       <ThemeProvider theme={Themes}>
         <>
           <Wrapper>
-            <Heading>
-              <h3>Channels</h3>
-              {isOwner && (
-                <IconButton onClick={() => this.handleOpenAddChannel()}>
-                  <FontAwesomeIcon icon={faPlusCircle} />
-                </IconButton>
-              )}
-            </Heading>
             <ChannelsList>
               {channels.map((el) => (
                 <li
@@ -79,20 +54,12 @@ class Channels extends React.Component {
             </ChannelsList>
           </Wrapper>
         </>
-        <>
-          <AddChannel
-            isOpen={addChannelModal}
-            teamId={teamId}
-            handleCloseAddChannel={() => this.handleCloseAddChannel()}
-          />
-        </>
       </ThemeProvider>
     );
   }
 }
 
 Channels.defaultProps = {
-  isOwner: false,
   channels: [],
   activeEl: '',
   teamId: null,
@@ -102,7 +69,6 @@ Channels.defaultProps = {
 };
 
 Channels.propTypes = {
-  isOwner: PropTypes.bool,
   channels: PropTypes.array,
   activeEl: PropTypes.string,
   teamId: PropTypes.number,
