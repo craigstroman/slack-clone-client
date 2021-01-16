@@ -31,25 +31,49 @@ export const User = styled.div`
   ${(props) => props.theme.mixins.clearfix()}
 `;
 
-export const Invite = styled.section`
+export const ChannelsBlock = styled.div`
   color: ${(props) => props.theme.colors.shadyLady};
   display: block;
-  height: 40px;
   width: 100%;
-  h3,
-  button {
-    float: left;
+  h5 {
+    display: inline-block;
+    margin-left: 5px;
   }
 
-  h3 {
-    margin-left: 10px;
+  button {
+    bottom: 13px;
+    color: ${(props) => props.theme.colors.shadyLady};
+    display: inline-block;
+    margin-left: 5px;
+    &:active,
+    &:visited,
+    &:hover {
+      color: ${(props) => props.theme.colors.shadyLady};
+    }
+  }
+`;
+
+export const InviteBlock = styled.div`
+  color: ${(props) => props.theme.colors.shadyLady};
+  display: block;
+  width: 100%;
+
+  h5 {
+    display: inline-block;
+    margin-left: 5px;
     padding-top: 8px;
   }
 
   button {
     bottom: 13px;
     color: ${(props) => props.theme.colors.shadyLady};
+    display: inline-block;
     margin-left: 5px;
+    &:active,
+    &:visited,
+    &:hover {
+      color: ${(props) => props.theme.colors.shadyLady};
+    }
   }
 
   ${(props) => props.theme.mixins.clearfix()}
