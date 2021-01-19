@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { CssBaseline, Grid } from '@material-ui/core';
+import { Col, Row } from 'react-bootstrap';
 import PrivateRoute from '../../shared/util/privateRoutes';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -9,11 +9,10 @@ import ViewTeam from '../Teams/ViewTeam/ViewTeam';
 
 const Home = (props) => (
   <>
-    <BrowserRouter>
-      <CssBaseline />
-      <main>
-        <Grid container spacing={3} justify="center">
-          <Grid item lg={12} style={{ padding: '12 !important' }}>
+    <Row>
+      <Col md={12}>
+        <BrowserRouter>
+          <main>
             <Switch>
               <Route path="/" exact component={Login} />
               <Route path="/login" exact component={Login} />
@@ -27,10 +26,10 @@ const Home = (props) => (
               />
               <PrivateRoute path="/create-team" exact component={CreateTeam} />
             </Switch>
-          </Grid>
-        </Grid>
-      </main>
-    </BrowserRouter>
+          </main>
+        </BrowserRouter>
+      </Col>
+    </Row>
   </>
 );
 
