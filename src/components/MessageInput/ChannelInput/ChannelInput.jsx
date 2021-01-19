@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import { TextField } from '@material-ui/core';
+import { Form } from 'react-bootstrap';
 import styled, { ThemeProvider } from 'styled-components';
 import gql from 'graphql-tag';
 import Themes from '../../../shared/themes';
@@ -9,16 +10,6 @@ import Themes from '../../../shared/themes';
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
-  .MuiFormControl-root {
-    text-align: left;
-    width: 100%;
-    .MuiInputBase-root {
-      .MuiInputBase-input {
-        color: ${(props) => props.theme.colors.black};
-        padding-left: 10px;
-      }
-    }
-  }
 `;
 
 class ChannelInput extends React.Component {
@@ -80,12 +71,12 @@ class ChannelInput extends React.Component {
     return (
       <ThemeProvider theme={Themes}>
         <Wrapper>
-          <TextField
+          <Form.Control
+            type="text"
             name="message"
-            placeholder={`Message #${name}`}
-            className={classes.input}
-            value={message}
             autoComplete="off"
+            placeholder={`Message #${name}`}
+            value={message}
             onChange={(e) => this.handleChange(e)}
             onKeyUp={(e) => {
               if (e.keyCode === 13 && !isSubmiting) {
