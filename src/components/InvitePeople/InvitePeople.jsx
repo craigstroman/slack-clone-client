@@ -1,28 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-} from '@material-ui/core';
+import { Button, Form, Modal } from 'react-bootstrap';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import styled from 'styled-components';
 import normalizeErrors from '../../shared/util/normalizeErrors';
 import { validateEmail } from '../../shared/util/utils';
 
-const StyledDialog = styled(Dialog)`
-  .MuiDialogTitle-root {
-    border-bottom: 1px solid #dee2e6;
-    margin-bottom: 1rem;
-  }
-  .MuiDialogActions-root {
-    border-top: 1px solid #dee2e6;
-    margin-top: 1rem;
+const StyledModal = styled(Modal)`
+  .modal-dialog {
+    .modal-content {
+      width: 600px;
+      .modal-header,
+      .modal-title {
+        width: 100%;
+      }
+    }
   }
 `;
 
@@ -52,6 +45,10 @@ class InvitePeople extends React.Component {
       if (value.length) {
         this.setState({
           email: value,
+        });
+      } else {
+        this.setState({
+          email: '',
         });
       }
     }
@@ -134,29 +131,38 @@ class InvitePeople extends React.Component {
     const { email, fieldErrors } = this.state;
 
     return (
-      <StyledDialog open={isOpen} maxWidth="md" fullWidth={true} onClose={this.handleClose}>
-        <DialogTitle id="form-dialog-title">Add People to your Team</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Invite a person to your team by entering their email address.</DialogContentText>
-          <TextField
-            type="text"
-            name="email"
-            label="Email"
-            value={email}
-            error={!fieldErrors.email === false}
-            helperText={fieldErrors.email}
-            onChange={(e) => this.handleChange(e)}
-            onBlur={this.validateForm}
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => this.handleClose()}>Cancel</Button>
-          <Button variant="contained" color="primary" onClick={this.handleSubmit}>
-            Invite Person
-          </Button>
-        </DialogActions>
-      </StyledDialog>
+      <>
+        <StyledModal show={isOpen} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add People to your Team</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>Invite a person to your team by entering their email address.</div>
+            <Form.Control
+              type="text"
+              name="email"
+              placeholder="Email"
+              onChange={(e) => this.handleChange(e)}
+              value={email}
+              isInvalid={fieldErrors.email}
+              required
+            />
+            <Form.Control.Feedback type="invalid">{fieldErrors.email}</Form.Control.Feedback>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button type="submit" variant="light" onClick={() => this.handleClose()}>
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant={!fieldErrors.email && email.length ? 'success' : 'secondary'}
+              onClick={this.handleSubmit}
+            >
+              Invite Person
+            </Button>
+          </Modal.Footer>
+        </StyledModal>
+      </>
     );
   }
 }
