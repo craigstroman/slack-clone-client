@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import { TextField } from '@material-ui/core';
 import { Form } from 'react-bootstrap';
 import styled, { ThemeProvider } from 'styled-components';
 import gql from 'graphql-tag';
