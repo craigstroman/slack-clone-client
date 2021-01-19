@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   color: ${(props) => props.theme.colors.black};
   display: flex;
   flex-direction: column-reverse;
-  height: 89vh;
+  height: 86vh;
   overflow-y: scroll;
   ul {
     list-style-type: none;
