@@ -10,7 +10,7 @@ const StyledModal = styled(Modal)`
   .modal-dialog {
     .modal-content {
       width: 600px;
-      d .modal-header,
+      .modal-header,
       .modal-title {
         width: 100%;
       }
@@ -40,6 +40,10 @@ class AddChannel extends React.Component {
       if (value.length) {
         this.setState({
           channelName: value,
+        });
+      } else {
+        this.setState({
+          channelName: '',
         });
       }
     }
@@ -139,10 +143,14 @@ class AddChannel extends React.Component {
             <Form.Control.Feedback type="invalid">{fieldErrors.channel}</Form.Control.Feedback>
           </Modal.Body>
           <Modal.Footer>
-            <Button type="submit" variant="danger" onClick={() => this.handleClose()}>
+            <Button type="submit" variant="light" onClick={() => this.handleClose()}>
               Cancel
             </Button>
-            <Button type="submit" variant="primary" onClick={this.handleSubmit}>
+            <Button
+              type="submit"
+              variant={!fieldErrors.channel && channelName.length ? 'success' : 'secondary'}
+              onClick={this.handleSubmit}
+            >
               Create Channel
             </Button>
           </Modal.Footer>
