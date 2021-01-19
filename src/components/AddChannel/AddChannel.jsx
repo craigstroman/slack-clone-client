@@ -1,27 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import {
-  Button,
-  TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from '@material-ui/core';
+import { Button, Form, Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
 import meQuery from '../../shared/queries/team';
 
-const StyledDialog = styled(Dialog)`
-  .MuiDialogTitle-root {
-    border-bottom: 1px solid #dee2e6;
-    margin-bottom: 1rem;
-  }
-  .MuiDialogActions-root {
-    border-top: 1px solid #dee2e6;
-    margin-top: 1rem;
+const StyledModal = styled(Modal)`
+  .modal-dialog {
+    .modal-content {
+      width: 600px;
+      d .modal-header,
+      .modal-title {
+        width: 100%;
+      }
+    }
   }
 `;
 
@@ -40,7 +33,7 @@ class AddChannel extends React.Component {
     this.validateForm = this.validateForm.bind(this);
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === 'name') {
@@ -102,7 +95,7 @@ class AddChannel extends React.Component {
           }
 
           const data = store.readQuery({ query: meQuery });
-          const teamIdx = data.me.teams.findIndex(el => el.id === teamId);
+          const teamIdx = data.me.teams.findIndex((el) => el.id === teamId);
 
           data.me.teams[teamIdx].channels.push(channel);
 
@@ -127,28 +120,34 @@ class AddChannel extends React.Component {
     const { channelName, fieldErrors } = this.state;
 
     return (
-      <StyledDialog open={isOpen} maxWidth="md" fullWidth={true} onClose={this.handleClose}>
-        <DialogTitle id="form-dialog-title">Create a channel</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Enter a channel name.</DialogContentText>
-          <TextField
-            type="text"
-            name="name"
-            label="# e.g. Leads"
-            value={channelName}
-            error={!fieldErrors.channel === false}
-            helperText={fieldErrors.channel}
-            onChange={e => this.handleChange(e)}
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => this.handleClose()}>Cancel</Button>
-          <Button variant="contained" color="primary" onClick={this.handleSubmit}>
-            Create Channel
-          </Button>
-        </DialogActions>
-      </StyledDialog>
+      <>
+        <StyledModal show={isOpen} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Create a channel</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>Enter a channel name.</div>
+            <Form.Control
+              type="text"
+              name="name"
+              placeholder="# e.g. Leads"
+              onChange={(e) => this.handleChange(e)}
+              value={channelName}
+              isInvalid={fieldErrors.channel}
+              required
+            />
+            <Form.Control.Feedback type="invalid">{fieldErrors.channel}</Form.Control.Feedback>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button type="submit" variant="danger" onClick={() => this.handleClose()}>
+              Cancel
+            </Button>
+            <Button type="submit" variant="primary" onClick={this.handleSubmit}>
+              Create Channel
+            </Button>
+          </Modal.Footer>
+        </StyledModal>
+      </>
     );
   }
 }
