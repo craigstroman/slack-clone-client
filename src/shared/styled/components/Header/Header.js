@@ -7,18 +7,6 @@ export const Wrapper = styled.div`
   margin-right: 10px;
 `;
 
-export const ListContent = styled.ul`
-  list-style-type: none;
-  li {
-    margin-bottom: 10px;
-    svg {
-      color: ${(props) => props.theme.colors.jungleGreen};
-      font-size: 0.85em;
-      margin-left: 5px;
-    }
-  }
-`;
-
 export const StyledDialog = styled(Dialog)`
   height: 400px;
   margin: 0 auto;
