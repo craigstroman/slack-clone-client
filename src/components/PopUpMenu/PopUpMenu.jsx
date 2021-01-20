@@ -2,10 +2,10 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import { Button, Menu, MenuItem } from '@material-ui/core';
+import { Button, Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
-import { StyledMenu, Wrapper } from '../../shared/styled/components/PopUpMenu/PopUpMenu';
+import Wrapper from '../../shared/styled/components/PopUpMenu/PopUpMenu';
 import Teams from '../Teams/Teams';
 import EditProfile from '../EditProfile/EditProfile';
 import CreateTeam from '../CreateTeam/CreateTeam';
@@ -75,33 +75,33 @@ class PopUpMenu extends React.Component {
       <>
         <ThemeProvider theme={Themes}>
           <Wrapper className="wrapper">
-            <Button
-              aria-controls="settings-menu"
-              aria-haspopup="true"
-              onClick={(e) => this.handleMenu(e, 'open')}
-            >
-              <FontAwesomeIcon icon={faCog} className="settings-icon" />
-            </Button>
-            <StyledMenu
-              id="settings-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={this.handleCloseMenu}
-            >
-              <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
-                <Button onClick={() => this.handleModal('create-team', true)}>Create a Team</Button>
-              </MenuItem>
-              <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
-                <Button onClick={() => this.handleModal('teams', true)}>Teams</Button>
-              </MenuItem>
-              <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
-                <Button onClick={() => this.handleModal('settings', true)}>Edit Profile</Button>
-              </MenuItem>
-              <MenuItem className="settings-menu__item" onClick={(e) => this.handleMenu(e, 'close')}>
-                <Button onClick={this.logout}>Logout</Button>
-              </MenuItem>
-            </StyledMenu>
+            <Dropdown>
+              <Dropdown.Toggle variant="light">
+                <FontAwesomeIcon icon={faCog} className="settings-icon" />
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item>
+                  <Button onClick={() => this.handleModal('create-team', true)} variant="link">
+                    Create a Team
+                  </Button>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Button onClick={() => this.handleModal('teams', true)} variant="link">
+                    Teams
+                  </Button>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Button onClick={() => this.handleModal('settings', true)} variant="link">
+                    Edit Profile
+                  </Button>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <Button onClick={this.logout} variant="link">
+                    Logout
+                  </Button>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Wrapper>
         </ThemeProvider>
         <EditProfile
