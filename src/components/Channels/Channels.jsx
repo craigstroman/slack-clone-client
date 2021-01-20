@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import { Button } from '@material-ui/core';
+import { Button } from 'react-bootstrap';
 import { ChannelsList, Wrapper } from '../../shared/styled/components/Channels/Channels';
 import Themes from '../../shared/themes';
 
@@ -40,6 +40,7 @@ class Channels extends React.Component {
                 >
                   <Button
                     className="channel-item"
+                    variant="link"
                     id={el.id}
                     uuid={el.uuid}
                     name={el.name}
