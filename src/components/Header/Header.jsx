@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, DialogActions, DialogContent, DialogTitle, Grid, IconButton } from '@material-ui/core';
+import { Button, Col, Grid, Row } from 'react-bootstrap';
 import jwt from 'jsonwebtoken';
 import uuid from 'react-uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserAlt, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router-dom';
-import { ListContent, StyledDialog, Wrapper } from '../../shared/styled/components/Header/Header';
+import { StyledDialog, Wrapper } from '../../shared/styled/components/Header/Header';
 import PopUpMenu from '../PopUpMenu/PopUpMenu';
+import Users from '../Users/Users';
 
 class Header extends React.Component {
   constructor(props) {
@@ -17,16 +18,17 @@ class Header extends React.Component {
       showUserModal: false,
     };
 
-    this.handleOpenUserModal = this.handleOpenUserModal.bind(this);
-    this.handleCloseUserModal = this.handleCloseUserModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
-  handleOpenUserModal = () => {
-    this.setState({ showUserModal: true });
-  };
+  toggleModal = () => {
+    const { showUserModal } = this.state;
 
-  handleCloseUserModal = () => {
-    this.setState({ showUserModal: false });
+    if (showUserModal) {
+      this.setState({ showUserModal: false });
+    } else {
+      this.setState({ showUserModal: true });
+    }
   };
 
   render() {
@@ -51,42 +53,24 @@ class Header extends React.Component {
 
     return (
       <Wrapper>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
+        <Row>
+          <Col md={12}>
             <h3>{title}</h3>
-          </Grid>
-          <Grid item xs={6} style={{ textAlign: 'left' }}>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
             {match.params.channelId && (
-              <IconButton
-                type="button"
-                className="header__users"
-                size="small"
-                onClick={this.handleOpenUserModal}
-              >
+              <Button type="button" className="header__users" variant="light" onClick={this.toggleModal}>
                 <FontAwesomeIcon icon={faUserAlt} />
-              </IconButton>
+              </Button>
             )}
-          </Grid>
-          <Grid item xs={6} style={{ textAlign: 'right' }}>
+          </Col>
+          <Col md={6} style={{ textAlign: 'right' }}>
             <PopUpMenu me={me} refetch={refetch} isOwner={isOwner} />
-          </Grid>
-        </Grid>
-        <StyledDialog open={showUserModal} maxWidth="md" fullWidth={true} onClose={this.handleCloseUserModal}>
-          <DialogTitle id="form-dialog-title">{teamName} Users</DialogTitle>
-          <DialogContent>
-            <ListContent>
-              {users.map((el, i) => (
-                <li key={uuid()}>
-                  {el.username}
-                  <FontAwesomeIcon icon={faCircle} className="user-status" />
-                </li>
-              ))}
-            </ListContent>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => this.handleCloseUserModal()}>Close</Button>
-          </DialogActions>
-        </StyledDialog>
+          </Col>
+        </Row>
+        <Users isOpen={showUserModal} teamName={teamName} users={users} handleCloseUsers={this.toggleModal} />
       </Wrapper>
     );
   }
