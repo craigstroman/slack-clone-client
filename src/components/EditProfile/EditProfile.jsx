@@ -1,14 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core';
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
+import styled from 'styled-components';
 import { validatePhoneNumber } from '../../shared/util/utils';
-import {
-  StyledDialog,
-  StyledTextField,
-  Wrapper,
-} from '../../shared/styled/components/EditProfile/EditProfile';
+
+const StyledModal = styled(Modal)`
+  .modal-dialog {
+    .modal-content {
+      width: 600px;
+      .modal-header,
+      .modal-title {
+        width: 100%;
+      }
+      .modal-body {
+        .row {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+`;
 
 class EditProfile extends React.Component {
   constructor(props) {
@@ -149,87 +162,74 @@ class EditProfile extends React.Component {
     const { firstName, lastName, username, phoneNumber, fieldErrors } = this.state;
 
     return (
-      <StyledDialog open={isOpen} maxWidth="md" fullWidth={true} onClose={this.handleClose}>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <DialogTitle id="form-dialog-title">Edit Profile</DialogTitle>
-          <DialogContent>
-            <Wrapper>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="First name"
-                    type="text"
-                    name="firstName"
-                    autoComplete="firstName"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => {
-                      this.handleChange(e);
-                    }}
-                    onBlur={this.validateForm}
-                    value={firstName || ''}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="Last name"
-                    type="text"
-                    name="lastName"
-                    autoComplete="lastName"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => {
-                      this.handleChange(e);
-                    }}
-                    onBlur={this.validateForm}
-                    value={lastName || ''}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="Display Name"
-                    type="text"
-                    name="username"
-                    autoComplete="username"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => {
-                      this.handleChange(e);
-                    }}
-                    onBlur={this.validateForm}
-                    error={!fieldErrors.username === false}
-                    helperText={fieldErrors.username}
-                    value={username}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="Phone Number"
-                    type="text"
-                    name="phoneNumber"
-                    autoComplete="phoneNumber"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => {
-                      this.handleChange(e);
-                    }}
-                    onBlur={this.validateForm}
-                    error={!fieldErrors.phoneNumber === false}
-                    helperText={fieldErrors.phoneNumber}
-                    value={phoneNumber || ''}
-                  />
-                </Grid>
-              </Grid>
-            </Wrapper>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => this.handleClose()}>Cancel</Button>
-            <Button variant="contained" color="primary" onClick={this.handleSubmit}>
+      <>
+        <StyledModal show={isOpen} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Profile</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {' '}
+            <Row>
+              <Col md={12}>
+                <Form.Control
+                  type="text"
+                  name="firstName"
+                  placeholder="First name"
+                  onChange={(e) => this.handleChange(e)}
+                  value={firstName || ''}
+                  isInvalid={fieldErrors.channel}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <Form.Control
+                  type="text"
+                  name="lastName"
+                  placeholder="Last name"
+                  onChange={(e) => this.handleChange(e)}
+                  value={lastName || ''}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <Form.Control
+                  type="text"
+                  name="username"
+                  placeholder="Display name"
+                  onChange={(e) => this.handleChange(e)}
+                  value={username || ''}
+                  isInvalid={fieldErrors.username}
+                  required
+                />
+                <Form.Control.Feedback type="invalid">{fieldErrors.username}</Form.Control.Feedback>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <Form.Control
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="Phone number"
+                  onChange={(e) => this.handleChange(e)}
+                  value={phoneNumber || ''}
+                  isInvalid={fieldErrors.phoneNumber}
+                />
+                <Form.Control.Feedback type="invalid">{fieldErrors.phoneNumber}</Form.Control.Feedback>
+              </Col>
+            </Row>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button type="submit" variant="light" onClick={() => this.handleClose()}>
+              Cancel
+            </Button>
+            <Button type="submit" variant="success" onClick={this.handleSubmit}>
               Save Changes
             </Button>
-          </DialogActions>
-        </form>
-      </StyledDialog>
+          </Modal.Footer>
+        </StyledModal>
+      </>
     );
   }
 }
