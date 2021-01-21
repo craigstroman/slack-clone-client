@@ -1,14 +1,37 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import { Button, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core';
-import {
-  StyledDialog,
-  StyledList,
-  StyledTextLink,
-  Wrapper,
-} from '../../shared/styled/components/Teams/Teams';
+import styled from 'styled-components';
+import { Button, Modal } from 'react-bootstrap';
 import meQuery from '../../shared/queries/team';
+
+const StyledModal = styled(Modal)`
+  .modal-dialog {
+    .modal-content {
+      width: 600px;
+      .modal-header,
+      .modal-title {
+        width: 100%;
+      }
+      .modal-body {
+        ul {
+          list-style-type: none;
+        }
+      }
+    }
+  }
+`;
+
+const StyledTextLink = styled(Link)`
+  color: ${(props) => props.theme.colors.black};
+  &:hover,
+  &:focus,
+  &:active {
+    color: ${(props) => props.theme.colors.black};
+    text-decoration: underline;
+  }
+`;
 
 class Teams extends React.Component {
   constructor(props) {
@@ -36,42 +59,37 @@ class Teams extends React.Component {
     }
 
     return (
-      <StyledDialog open={isOpen} maxWidth="md" fullWidth={true} onClose={this.handleClose}>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <DialogTitle id="form-dialog-title">Teams</DialogTitle>
-          <DialogContent>
-            <Wrapper>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  {teams.length >= 2 && (
-                    <StyledList>
-                      {teams.map((el) => {
-                        const { uuid, name, channels, id } = el;
-                        const channel = channels[0];
+      <StyledModal show={isOpen} onHide={this.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create a channel</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {teams.length >= 2 && (
+            <ul>
+              {teams.map((el) => {
+                const { uuid, name, channels, id } = el;
+                const channel = channels[0];
 
-                        return (
-                          <li key={`${uuid}-${id}`}>
-                            <StyledTextLink
-                              to={`/dashboard/view/team/${uuid}/channel/${channel.uuid}`}
-                              onClick={this.handleClose}
-                            >
-                              {name}
-                            </StyledTextLink>
-                          </li>
-                        );
-                      })}
-                    </StyledList>
-                  )}
-                  {teams.length === 1 && 'You only have one team created.'}
-                </Grid>
-              </Grid>
-            </Wrapper>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => this.handleClose()}>Close</Button>
-          </DialogActions>
-        </form>
-      </StyledDialog>
+                return (
+                  <li key={`${uuid}-${id}`}>
+                    <StyledTextLink
+                      to={`/dashboard/view/team/${uuid}/channel/${channel.uuid}`}
+                      onClick={this.handleClose}
+                    >
+                      {name}
+                    </StyledTextLink>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button type="submit" variant="light" onClick={() => this.handleClose()}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </StyledModal>
     );
   }
 }
