@@ -1,9 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core';
+import { Button, Form, Modal } from 'react-bootstrap';
 import { graphql } from 'react-apollo';
+import styled from 'styled-components';
 import gql from 'graphql-tag';
-import { StyledDialog, StyledTextField, Wrapper } from '../../shared/styled/components/CreateTeam/CreateTeam';
+
+const StyledModal = styled(Modal)`
+  .modal-dialog {
+    .modal-content {
+      width: 600px;
+      .modal-header,
+      .modal-title {
+        width: 100%;
+      }
+    }
+  }
+`;
 
 class CreateTeams extends React.Component {
   constructor(props) {
@@ -109,37 +121,38 @@ class CreateTeams extends React.Component {
     const { isOpen } = this.props;
 
     return (
-      <StyledDialog open={isOpen} maxWidth="md" fullWidth={true} onClose={this.handleClose}>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <DialogTitle id="form-dialog-title">Create Team</DialogTitle>
-          <DialogContent>
-            <Wrapper>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="Team Name *"
-                    type="text"
-                    name="name"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => this.handleChange(e)}
-                    onBlur={this.validateForm}
-                    error={!fieldErrors.name === false}
-                    helperText={fieldErrors.name}
-                    value={name}
-                  />
-                </Grid>
-              </Grid>
-            </Wrapper>
-          </DialogContent>
-          <DialogActions>
-            <Button type="button" variant="contained" color="primary" onClick={this.handleSubmit}>
+      <>
+        <StyledModal show={isOpen} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Create Team</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>Enter a channel name.</div>
+            <Form.Control
+              type="text"
+              name="name"
+              placeholder="Team Name *"
+              onChange={(e) => this.handleChange(e)}
+              value={name}
+              isInvalid={fieldErrors.name}
+              required
+            />
+            <Form.Control.Feedback type="invalid">{fieldErrors.name}</Form.Control.Feedback>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="light" onClick={() => this.handleClose()}>
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant={!fieldErrors.channel && name.length ? 'success' : 'secondary'}
+              onClick={this.handleSubmit}
+            >
               Create Team
             </Button>
-            <Button onClick={() => this.handleClose()}>Close</Button>
-          </DialogActions>
-        </form>
-      </StyledDialog>
+          </Modal.Footer>
+        </StyledModal>
+      </>
     );
   }
 }
