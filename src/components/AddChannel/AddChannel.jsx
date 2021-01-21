@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import gql from 'graphql-tag';
 import meQuery from '../../shared/queries/team';
 
+// TODO: Work on disabling buttons for invite and addchannel components like Slack does before entering text.
+
 const StyledModal = styled(Modal)`
   .modal-dialog {
     .modal-content {
@@ -130,7 +132,7 @@ class AddChannel extends React.Component {
             <Modal.Title>Create a channel</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div>Enter a channel name.</div>
+            <div>Enter a channel name</div>
             <Form.Control
               type="text"
               name="name"
@@ -143,13 +145,14 @@ class AddChannel extends React.Component {
             <Form.Control.Feedback type="invalid">{fieldErrors.channel}</Form.Control.Feedback>
           </Modal.Body>
           <Modal.Footer>
-            <Button type="submit" variant="light" onClick={() => this.handleClose()}>
+            <Button type="button" variant="light" onClick={() => this.handleClose()}>
               Cancel
             </Button>
             <Button
               type="submit"
               variant={!fieldErrors.channel && channelName.length ? 'success' : 'secondary'}
               onClick={this.handleSubmit}
+              disabled={typeof fieldErrors.channel === 'undefined' && typeof channelName === 'undefined'}
             >
               Create Channel
             </Button>

@@ -157,6 +157,7 @@ class InvitePeople extends React.Component {
               type="submit"
               variant={!fieldErrors.email && email.length ? 'success' : 'secondary'}
               onClick={this.handleSubmit}
+              disabled={typeof fieldErrors.email === 'undefined' && typeof email === 'undefined'}
             >
               Invite Person
             </Button>
