@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
 import PopUpMenu from '../../../components/PopUpMenu/PopUpMenu';
 
@@ -20,23 +20,23 @@ const Wrapper = styled.div`
 const NoTeams = (props) => (
   <Wrapper>
     <header>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <Row>
+        <Col md={12}>
           <h1>Slack Clone - No Teams</h1>
           <hr />
-        </Grid>
-      </Grid>
+        </Col>
+      </Row>
     </header>
     <main>
-      <Grid container spacing={3}>
-        <Grid item xs={12} style={{ textAlign: 'right' }}>
+      <Row>
+        <Col md={12}>
           <PopUpMenu />
-        </Grid>
-        <Grid item xs={12}>
+        </Col>
+        <Col md={12}>
           You have no teams. &nbsp; You either need to <a href="/create-team">create a team</a>&nbsp; or be
           invited to one.
-        </Grid>
-      </Grid>
+        </Col>
+      </Row>
     </main>
   </Wrapper>
 );
