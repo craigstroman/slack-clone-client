@@ -1,34 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import { Button, Grid, TextField } from '@material-ui/core';
-import styled, { ThemeProvider } from 'styled-components';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import { ThemeProvider } from 'styled-components';
 import gql from 'graphql-tag';
 import Themes from '../../../shared/themes';
 import PopUpMenu from '../../../components/PopUpMenu/PopUpMenu';
-
-const Wrapper = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  header {
-    h1 {
-      text-align: center;
-    }
-  }
-  main {
-    form {
-      margin: 0 auto;
-      text-align: center;
-    }
-  }
-`;
-
-const StyledTextField = styled(TextField)`
-  .MuiOutlinedInput-root {
-    text-align: left;
-    width: 500px;
-  }
-`;
+import Wrapper from '../../../shared/styled/pages/Teams/CreateTeam/CreateTeam';
 
 class CreateTeam extends React.Component {
   constructor(props) {
@@ -122,44 +100,44 @@ class CreateTeam extends React.Component {
       <ThemeProvider theme={Themes}>
         <Wrapper>
           <header>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
+            <Row>
+              <Col md={12} className="header-text">
                 <h1>Slack Clone - Create A Team</h1>
                 <hr />
-              </Grid>
-            </Grid>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12} className="pop-up-menu">
+                <PopUpMenu history={history} />
+              </Col>
+            </Row>
           </header>
           <main>
-            <form
+            <Form
               onSubmit={(e) => {
                 e.preventDefault();
               }}
             >
-              <Grid container spacing={3}>
-                <Grid item xs={12} style={{ textAlign: 'right' }}>
-                  <PopUpMenu history={history} />
-                </Grid>
-                <Grid item xs={12}>
-                  <StyledTextField
-                    label="Team Name *"
+              <Row>
+                <Col md={6}>
+                  <Form.Control
                     type="text"
                     name="name"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={(e) => this.handleChange(e)}
-                    onBlur={this.validateForm}
-                    error={!fieldErrors.name === false}
-                    helperText={fieldErrors.name}
                     value={name}
+                    onChange={(e) => this.handleChange(e)}
+                    isInvalid={fieldErrors.name}
                   />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button type="button" variant="contained" color="primary" onClick={this.handleSubmit}>
+                  <Form.Control.Feedback>{fieldErrors.name}</Form.Control.Feedback>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <Button type="button" variant="primary" onClick={this.handleSubmit}>
                     Create Team
                   </Button>
-                </Grid>
-              </Grid>
-            </form>
+                </Col>
+              </Row>
+            </Form>
           </main>
         </Wrapper>
       </ThemeProvider>
