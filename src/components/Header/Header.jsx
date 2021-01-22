@@ -1,14 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Col, Grid, Row } from 'react-bootstrap';
+import styled from 'styled-components';
 import jwt from 'jsonwebtoken';
 import uuid from 'react-uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { withRouter } from 'react-router-dom';
-import { StyledDialog, Wrapper } from '../../shared/styled/components/Header/Header';
 import PopUpMenu from '../PopUpMenu/PopUpMenu';
 import Users from '../Users/Users';
+
+const Wrapper = styled.div`
+  height: 10%;
+  margin-left: 10px;
+  margin-right: 10px;
+`;
 
 class Header extends React.Component {
   constructor(props) {
