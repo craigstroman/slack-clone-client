@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { graphql } from 'react-apollo';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import gql from 'graphql-tag';
+import Themes from '../../shared/themes';
 
 const StyledModal = styled(Modal)`
   .modal-dialog {
@@ -15,7 +16,7 @@ const StyledModal = styled(Modal)`
       }
       .modal-footer {
         .cancel-button {
-          ${(props) => props.theme.mixins.cancelButton};
+          ${(props) => props.theme.mixins.cancelButton()};
         }
       }
     }
@@ -127,36 +128,38 @@ class CreateTeams extends React.Component {
 
     return (
       <>
-        <StyledModal show={isOpen} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Create Team</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div>Enter a channel name.</div>
-            <Form.Control
-              type="text"
-              name="name"
-              placeholder="Team Name *"
-              onChange={(e) => this.handleChange(e)}
-              value={name}
-              isInvalid={fieldErrors.name}
-              required
-            />
-            <Form.Control.Feedback type="invalid">{fieldErrors.name}</Form.Control.Feedback>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="light" className="cancel-button" onClick={() => this.handleClose()}>
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              variant={!fieldErrors.channel && name.length ? 'success' : 'secondary'}
-              onClick={this.handleSubmit}
-            >
-              Create Team
-            </Button>
-          </Modal.Footer>
-        </StyledModal>
+        <ThemeProvider theme={Themes}>
+          <StyledModal show={isOpen} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Create Team</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div>Enter a channel name.</div>
+              <Form.Control
+                type="text"
+                name="name"
+                placeholder="Team Name *"
+                onChange={(e) => this.handleChange(e)}
+                value={name}
+                isInvalid={fieldErrors.name}
+                required
+              />
+              <Form.Control.Feedback type="invalid">{fieldErrors.name}</Form.Control.Feedback>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="light" className="cancel-button" onClick={() => this.handleClose()}>
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant={!fieldErrors.channel && name.length ? 'success' : 'secondary'}
+                onClick={this.handleSubmit}
+              >
+                Create Team
+              </Button>
+            </Modal.Footer>
+          </StyledModal>
+        </ThemeProvider>
       </>
     );
   }

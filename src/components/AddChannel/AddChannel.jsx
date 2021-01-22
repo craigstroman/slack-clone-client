@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import { Button, Form, Modal } from 'react-bootstrap';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import gql from 'graphql-tag';
 import meQuery from '../../shared/queries/team';
+import Themes from '../../shared/themes';
 
 const StyledModal = styled(Modal)`
   .modal-dialog {
@@ -16,7 +17,7 @@ const StyledModal = styled(Modal)`
       }
       .modal-footer {
         .cancel-button {
-          ${(props) => props.theme.mixins.cancelButton};
+          ${(props) => props.theme.mixins.cancelButton()};
         }
       }
     }
@@ -129,7 +130,7 @@ class AddChannel extends React.Component {
     const { channelName, fieldErrors } = this.state;
 
     return (
-      <>
+      <ThemeProvider theme={Themes}>
         <StyledModal show={isOpen} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Create a channel</Modal.Title>
@@ -166,7 +167,7 @@ class AddChannel extends React.Component {
             </Button>
           </Modal.Footer>
         </StyledModal>
-      </>
+      </ThemeProvider>
     );
   }
 }

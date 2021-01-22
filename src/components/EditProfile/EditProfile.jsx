@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { validatePhoneNumber } from '../../shared/util/utils';
+import Themes from '../../shared/themes';
 
 const StyledModal = styled(Modal)`
   .modal-dialog {
@@ -17,6 +18,11 @@ const StyledModal = styled(Modal)`
       .modal-body {
         .row {
           margin-bottom: 10px;
+        }
+      }
+      .modal-footer {
+        .cancel-button {
+          ${(props) => props.theme.mixins.cancelButton()};
         }
       }
     }
@@ -162,7 +168,7 @@ class EditProfile extends React.Component {
     const { firstName, lastName, username, phoneNumber, fieldErrors } = this.state;
 
     return (
-      <>
+      <ThemeProvider theme={Themes}>
         <StyledModal show={isOpen} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Edit Profile</Modal.Title>
@@ -221,7 +227,12 @@ class EditProfile extends React.Component {
             </Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button type="submit" variant="light" onClick={() => this.handleClose()}>
+            <Button
+              type="submit"
+              variant="light"
+              className="cancel-button"
+              onClick={() => this.handleClose()}
+            >
               Cancel
             </Button>
             <Button type="submit" variant="success" onClick={this.handleSubmit}>
@@ -229,7 +240,7 @@ class EditProfile extends React.Component {
             </Button>
           </Modal.Footer>
         </StyledModal>
-      </>
+      </ThemeProvider>
     );
   }
 }
