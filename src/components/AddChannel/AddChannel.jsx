@@ -6,8 +6,6 @@ import styled from 'styled-components';
 import gql from 'graphql-tag';
 import meQuery from '../../shared/queries/team';
 
-// TODO: Work on disabling buttons for invite and addchannel components like Slack does before entering text.
-
 const StyledModal = styled(Modal)`
   .modal-dialog {
     .modal-content {
@@ -15,6 +13,11 @@ const StyledModal = styled(Modal)`
       .modal-header,
       .modal-title {
         width: 100%;
+      }
+      .modal-footer {
+        .cancel-button {
+          ${(props) => props.theme.mixins.cancelButton};
+        }
       }
     }
   }
@@ -145,7 +148,12 @@ class AddChannel extends React.Component {
             <Form.Control.Feedback type="invalid">{fieldErrors.channel}</Form.Control.Feedback>
           </Modal.Body>
           <Modal.Footer>
-            <Button type="button" variant="light" onClick={() => this.handleClose()}>
+            <Button
+              type="button"
+              variant="light"
+              className="cancel-button"
+              onClick={() => this.handleClose()}
+            >
               Cancel
             </Button>
             <Button

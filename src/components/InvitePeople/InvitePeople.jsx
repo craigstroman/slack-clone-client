@@ -15,6 +15,11 @@ const StyledModal = styled(Modal)`
       .modal-title {
         width: 100%;
       }
+      .modal-footer {
+        .cancel-button {
+          ${(props) => props.theme.mixins.cancelButton};
+        }
+      }
     }
   }
 `;
@@ -150,7 +155,12 @@ class InvitePeople extends React.Component {
             <Form.Control.Feedback type="invalid">{fieldErrors.email}</Form.Control.Feedback>
           </Modal.Body>
           <Modal.Footer>
-            <Button type="submit" variant="light" onClick={() => this.handleClose()}>
+            <Button
+              type="submit"
+              variant="light"
+              className="cancel-button"
+              onClick={() => this.handleClose()}
+            >
               Cancel
             </Button>
             <Button

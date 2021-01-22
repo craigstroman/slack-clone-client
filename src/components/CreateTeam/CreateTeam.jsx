@@ -13,6 +13,11 @@ const StyledModal = styled(Modal)`
       .modal-title {
         width: 100%;
       }
+      .modal-footer {
+        .cancel-button {
+          ${(props) => props.theme.mixins.cancelButton};
+        }
+      }
     }
   }
 `;
@@ -140,7 +145,7 @@ class CreateTeams extends React.Component {
             <Form.Control.Feedback type="invalid">{fieldErrors.name}</Form.Control.Feedback>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="light" onClick={() => this.handleClose()}>
+            <Button variant="light" className="cancel-button" onClick={() => this.handleClose()}>
               Cancel
             </Button>
             <Button
