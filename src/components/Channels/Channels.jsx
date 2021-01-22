@@ -27,34 +27,30 @@ class Channels extends React.Component {
 
     return (
       <ThemeProvider theme={Themes}>
-        <>
-          <Wrapper>
-            <ChannelsList>
-              {channels.map((el) => (
-                <li
-                  className={
-                    activeEl === `${el.uuid}` ? 'channels-list__item selected' : 'channels-list__item'
-                  }
-                  id={el.uuid}
-                  key={el.uuid}
+        <Wrapper>
+          <ChannelsList>
+            {channels.map((el) => (
+              <li
+                className={activeEl === `${el.uuid}` ? 'channels-list__item selected' : 'channels-list__item'}
+                id={el.uuid}
+                key={el.uuid}
+              >
+                <Button
+                  className="channel-item"
+                  variant="link"
+                  id={el.id}
+                  uuid={el.uuid}
+                  name={el.name}
+                  teamid={teamId}
+                  onClick={(e) => this.handleSelectChannel(e)}
                 >
-                  <Button
-                    className="channel-item"
-                    variant="link"
-                    id={el.id}
-                    uuid={el.uuid}
-                    name={el.name}
-                    teamid={teamId}
-                    onClick={(e) => this.handleSelectChannel(e)}
-                  >
-                    #&nbsp;
-                    {el.name}
-                  </Button>
-                </li>
-              ))}
-            </ChannelsList>
-          </Wrapper>
-        </>
+                  #&nbsp;
+                  {el.name}
+                </Button>
+              </li>
+            ))}
+          </ChannelsList>
+        </Wrapper>
       </ThemeProvider>
     );
   }
