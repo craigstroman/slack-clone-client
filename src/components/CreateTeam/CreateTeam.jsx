@@ -16,7 +16,7 @@ const StyledModal = styled(Modal)`
       }
       .modal-footer {
         .cancel-button {
-          ${(props) => props.theme.mixins.cancelButton()};
+          color: ${(props) => props.theme.colors.black};
         }
       }
     }
@@ -147,7 +147,11 @@ class CreateTeams extends React.Component {
               <Form.Control.Feedback type="invalid">{fieldErrors.name}</Form.Control.Feedback>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="light" className="cancel-button" onClick={() => this.handleClose()}>
+              <Button
+                variant="outline-secondary"
+                className="cancel-button"
+                onClick={() => this.handleClose()}
+              >
                 Cancel
               </Button>
               <Button
