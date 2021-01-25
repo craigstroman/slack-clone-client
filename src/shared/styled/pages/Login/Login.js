@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
 
 export const Header = styled.header`
@@ -19,10 +20,18 @@ export const Content = styled.main`
   form {
     margin: 0 auto;
     text-align: center;
+    z-index: 0;
     .row {
       margin: 15px auto 15px auto;
       div {
         margin: 0 auto;
+        input[type='text'],
+        input[type='password'] {
+          padding-right: 40px;
+          &.is-invalid {
+            background-image: none;
+          }
+        }
         .invalid-feedback {
           text-align: left;
         }
@@ -30,3 +39,22 @@ export const Content = styled.main`
     }
   }
 `;
+
+export const InputIcon = styled.div`
+  position: relative;
+  button {
+    @extend .btn .btn-link;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    &:focus,
+    &:active {
+      outline: none;
+    }
+  }
+`;
+
+// color: ${(props) => props.theme.colors.black};
