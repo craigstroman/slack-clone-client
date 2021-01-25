@@ -195,7 +195,11 @@ class Login extends React.Component {
                     isInvalid={fieldErrors.password}
                     required
                   />
-                  <button type="button" onClick={this.togglePasswordMask}>
+                  <button
+                    type="button"
+                    onClick={this.togglePasswordMask}
+                    title={hidden ? 'Show Password' : 'Hide Password'}
+                  >
                     <FontAwesomeIcon icon={hidden ? faEye : faEyeSlash} style={{ cursor: 'pointer' }} />
                   </button>
                   <Form.Control.Feedback type="invalid">{fieldErrors.password}</Form.Control.Feedback>
