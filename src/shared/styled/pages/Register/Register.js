@@ -23,6 +23,14 @@ export const Content = styled.main`
       margin: 15px auto 15px auto;
       div {
         margin: 0 auto;
+        input[type='text'],
+        input[type='email'],
+        input[type='password'] {
+          padding-right: 40px;
+          &.is-invalid {
+            background-image: none;
+          }
+        }
         .invalid-feedback {
           text-align: left;
         }
