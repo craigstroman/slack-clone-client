@@ -18,7 +18,7 @@ const StyledModal = styled(Modal)`
       }
       .modal-footer {
         .cancel-button {
-          ${(props) => props.theme.mixins.cancelButton};
+          color: ${(props) => props.theme.colors.black};
         }
       }
     }
@@ -158,7 +158,7 @@ class InvitePeople extends React.Component {
           <Modal.Footer>
             <Button
               type="submit"
-              variant="light"
+              variant="outline-secondary"
               className="cancel-button"
               onClick={() => this.handleClose()}
             >
