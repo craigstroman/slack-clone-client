@@ -6,7 +6,7 @@ import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { updateSubScription } from '../../apollo';
-import { Header, Content } from '../../shared/styled/pages/Login/Login';
+import { Header, Content, InputIcon } from '../../shared/styled/pages/Login/Login';
 import { validateEmail } from '../../shared/util/utils';
 
 class Login extends React.Component {
@@ -183,7 +183,7 @@ class Login extends React.Component {
             </Row>
             <Row>
               <Col md={6}>
-                <div className="input-group">
+                <InputIcon>
                   <Form.Control
                     type={hidden ? 'password' : 'text'}
                     name="password"
@@ -195,13 +195,11 @@ class Login extends React.Component {
                     isInvalid={fieldErrors.password}
                     required
                   />
-                  <span className="input-group-addon">
-                    <Button variant="secondary" onClick={this.togglePasswordMask}>
-                      <FontAwesomeIcon icon={hidden ? faEye : faEyeSlash} style={{ cursor: 'pointer' }} />
-                    </Button>
-                  </span>
+                  <button type="button" onClick={this.togglePasswordMask}>
+                    <FontAwesomeIcon icon={hidden ? faEye : faEyeSlash} style={{ cursor: 'pointer' }} />
+                  </button>
                   <Form.Control.Feedback type="invalid">{fieldErrors.password}</Form.Control.Feedback>
-                </div>
+                </InputIcon>
               </Col>
             </Row>
             <Row>
