@@ -4,7 +4,7 @@ import { withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Header, Content } from '../../shared/styled/pages/Register/Register';
-import { validateEmail } from '../../shared/util/utils';
+import { validateEmail, validatePhoneNumber } from '../../shared/util/utils';
 
 class Register extends React.Component {
   constructor(props) {
@@ -13,6 +13,9 @@ class Register extends React.Component {
     this.state = {
       username: '',
       email: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
       password: '',
       passwordConfirmation: '',
       fieldErrors: '',
@@ -127,8 +130,32 @@ class Register extends React.Component {
    * @return     {Boolean}  Indicates if the form is valid or invalid.
    */
   validateForm = () => {
-    const { email, username, password, passwordConfirmation, emailVerified, usernameVerified } = this.state;
+    const {
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      username,
+      password,
+      passwordConfirmation,
+      emailVerified,
+      usernameVerified,
+    } = this.state;
     const errors = {};
+
+    if (!firstName.length) {
+      errors.firstName = 'First name is required.';
+    }
+
+    if (!lastName.length) {
+      errors.lastName = 'Last name is required.';
+    }
+
+    if (!phoneNumber.length) {
+      errors.phoneNumber = 'Phone number is required.';
+    } else if (!validatePhoneNumber(phoneNumber)) {
+      errors.phoneNumber = 'Phone number is invalid.';
+    }
 
     if (!email.length) {
       errors.email = 'Email is required.';
@@ -185,15 +212,29 @@ class Register extends React.Component {
    * @param      {Object}  e       The event object.
    */
   handleSubmit = async (e) => {
-    const { username, email, password } = this.state;
+    const { firstName, lastName, phoneNumber, username, email, password } = this.state;
 
     if (this.validateForm()) {
       const { client } = this.props;
 
       const response = await client.mutate({
         mutation: gql`
-          mutation($username: String!, $email: String!, $password: String!) {
-            register(username: $username, email: $email, password: $password) {
+          mutation(
+            $firstName: String!
+            $lastName: String!
+            $phoneNumber: String!
+            $username: String!
+            $email: String!
+            $password: String!
+          ) {
+            register(
+              firstName: $firstName
+              lastName: $lastName
+              phoneNumber: $phoneNumber
+              username: $username
+              email: $email
+              password: $password
+            ) {
               ok
               errors {
                 path
@@ -202,7 +243,7 @@ class Register extends React.Component {
             }
           }
         `,
-        variables: { username, email, password },
+        variables: { firstName, lastName, phoneNumber, username, email, password },
       });
 
       const { ok, errors } = response.data.register;
@@ -225,6 +266,9 @@ class Register extends React.Component {
   render() {
     const {
       username,
+      firstName,
+      lastName,
+      phoneNumber,
       email,
       password,
       passwordConfirmation,
@@ -245,6 +289,51 @@ class Register extends React.Component {
         </Header>
         <Content>
           <Form>
+            <Row>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name *"
+                  value={firstName}
+                  required
+                  onChange={(e) => this.handleChange(e)}
+                  onBlur={this.validateForm}
+                  isInvalid={!fieldErrors.firstName === false}
+                />
+                <Form.Control.Feedback type="invalid">{fieldErrors.firstName}</Form.Control.Feedback>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Form.Control
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name *"
+                  value={lastName}
+                  required
+                  onChange={(e) => this.handleChange(e)}
+                  onBlur={this.validateForm}
+                  isInvalid={!fieldErrors.lastName === false}
+                />
+                <Form.Control.Feedback type="invalid">{fieldErrors.lastName}</Form.Control.Feedback>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <Form.Control
+                  type="tel"
+                  name="phoneNumber"
+                  placeholder="Phone Number *"
+                  value={phoneNumber}
+                  required
+                  onChange={(e) => this.handleChange(e)}
+                  onBlur={this.validateForm}
+                  isInvalid={!fieldErrors.phoneNumber === false}
+                />
+                <Form.Control.Feedback type="invalid">{fieldErrors.phoneNumber}</Form.Control.Feedback>
+              </Col>
+            </Row>
             <Row>
               <Col md={6}>
                 <Form.Control
