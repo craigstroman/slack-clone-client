@@ -25,6 +25,7 @@ export const Content = styled.main`
         margin: 0 auto;
         input[type='text'],
         input[type='email'],
+        input[type='tel'],
         input[type='password'] {
           padding-right: 40px;
           &.is-invalid {
