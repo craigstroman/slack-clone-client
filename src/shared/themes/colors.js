@@ -18,6 +18,8 @@ const colors = {
   scorpion: '#616061',
 
   apple: '#388E3B',
+
+  treePoppy: '#FF9A1E',
 };
 
 export default colors;
