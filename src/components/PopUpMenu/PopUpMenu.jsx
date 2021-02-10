@@ -70,6 +70,8 @@ class PopUpMenu extends React.Component {
   render() {
     const { anchorEl, settingsModal, teamsModal, createTeams } = this.state;
     const { isOwner, me, refetch } = this.props;
+    const { firstName, lastName } = me;
+    const userInitials = `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
 
     return (
       <>
@@ -77,7 +79,7 @@ class PopUpMenu extends React.Component {
           <Wrapper className="wrapper">
             <Dropdown>
               <Dropdown.Toggle variant="light">
-                <FontAwesomeIcon icon={faCog} className="settings-icon" />
+                <div className="user-icon">{userInitials}</div>
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item>
