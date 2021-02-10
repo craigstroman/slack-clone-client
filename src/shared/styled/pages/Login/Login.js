@@ -27,7 +27,7 @@ export const Content = styled.main`
         margin: 0 auto;
         input[type='text'],
         input[type='password'] {
-          padding-right: 40px;
+          padding-right: 44px;
           &.is-invalid {
             background-image: none;
           }
@@ -56,5 +56,3 @@ export const InputIcon = styled.div`
     }
   }
 `;
-
-// color: ${(props) => props.theme.colors.black};
