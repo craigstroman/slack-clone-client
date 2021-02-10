@@ -14,6 +14,13 @@ const Wrapper = styled.div`
   height: 10%;
   margin-left: 10px;
   margin-right: 10px;
+  .header__users {
+    position: relative;
+    button {
+      position: absolute;
+      bottom: 5px;
+    }
+  }
 `;
 
 class Header extends React.Component {
@@ -65,9 +72,9 @@ class Header extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col md={6}>
+          <Col md={6} className="header__users">
             {match.params.channelId && (
-              <Button type="button" className="header__users" variant="light" onClick={this.toggleModal}>
+              <Button type="button" variant="light" onClick={this.toggleModal}>
                 <FontAwesomeIcon icon={faUserAlt} />
               </Button>
             )}
