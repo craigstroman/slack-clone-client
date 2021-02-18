@@ -10,15 +10,18 @@ export const ChannelsList = styled.ul`
   li {
     &.selected {
       background-color: ${(props) => props.theme.colors.toryBlue};
+
       &:hover,
       &:active,
       &:visited {
         background-color: ${(props) => props.theme.colors.toryBlue};
       }
       button {
+        color: ${(props) => props.theme.colors.white};
         &:hover,
         &:active,
         &:visited {
+          color: ${(props) => props.theme.colors.white};
           background-color: ${(props) => props.theme.colors.toryBlue};
         }
       }
