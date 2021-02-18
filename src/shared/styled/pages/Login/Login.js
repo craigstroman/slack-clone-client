@@ -1,4 +1,3 @@
-import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
 
 export const Header = styled.header`
