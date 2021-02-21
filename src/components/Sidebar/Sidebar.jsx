@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import {
   Wrapper,
   Header,
@@ -14,6 +14,7 @@ import {
 import Channels from '../Channels/Channels';
 import InvitePeople from '../InvitePeople/InvitePeople';
 import AddChannel from '../AddChannel/AddChannel';
+import UserStatus from '../UserStatus/UserStatus';
 import Themes from '../../shared/themes';
 
 class Sidebar extends React.Component {
@@ -118,7 +119,7 @@ class Sidebar extends React.Component {
           <Header>
             <h2>{teamName}</h2>
             <User>
-              <FontAwesomeIcon icon={faCircle} className="user-status" />
+              <UserStatus status="online" size="large" />
               <h3>{currentUser.username}</h3>
             </User>
           </Header>
