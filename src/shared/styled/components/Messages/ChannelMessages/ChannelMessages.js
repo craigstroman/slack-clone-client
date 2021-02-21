@@ -7,30 +7,57 @@ export const Wrapper = styled.div`
   flex-direction: column-reverse;
   height: 86vh;
   overflow-y: scroll;
+  position: relative;
   ul {
     list-style-type: none;
     margin-block-start: 0;
     margin-block-end: 0;
     padding-inline-start: 0;
+    position: relative;
     li {
       margin-bottom: 10px;
       padding-left: 10px;
+      position: relative;
     }
   }
 `;
 export const MessageHeader = styled.header`
   display: block;
+  height: 50px;
+  position: relative;
   width: 100%;
-  h3 {
+  h3,
+  .message-date-time {
     display: inline-block;
-    font-weight: bold;
-    margin-right: 20px;
-    text-align: left;
+    position: relative;
+    z-index: 0;
   }
-  div {
-    color: ${(props) => props.theme.colors.scorpion};
-    display: inline-block;
-    font-size: 0.875em;
+
+  .message-date-time {
+    margin-left: 20px;
+  }
+
+  h3,
+  .btn,
+  .btn-link {
+    background-image: none;
+    color: ${(props) => props.theme.colors.black};
+    outline: 0;
+    box-shadow: none;
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: underline;
+    }
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
+      background-image: none;
+      color: ${(props) => props.theme.colors.black};
+      outline: 0;
+      box-shadow: none;
+    }
   }
 `;
 
