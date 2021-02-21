@@ -22,11 +22,6 @@ export const User = styled.div`
     display: inline-block;
     text-align: center;
   }
-  svg {
-    color: ${(props) => props.theme.colors.jungleGreen};
-    font-size: 0.85em;
-    margin-right: 5px;
-  }
 
   ${(props) => props.theme.mixins.clearfix()}
 `;
