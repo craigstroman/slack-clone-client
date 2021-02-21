@@ -17,15 +17,22 @@ const StyledPopOver = styled(Popover)`
   main {
     padding-left: 10px;
     text-align: left;
-    .email-link {
-      a {
-        color: ${(props) => props.theme.colors.black};
-        text-decoration: none;
-        &:hover,
-        &:focus,
-        &:active,
-        &:visited {
-          text-decoration: underline;
+    .user-name {
+      h3 {
+        display: inline-block;
+      }
+    }
+    .user-email {
+      h5 {
+        a {
+          color: ${(props) => props.theme.colors.black};
+          text-decoration: none;
+          &:hover,
+          &:focus,
+          &:active,
+          &:visited {
+            text-decoration: underline;
+          }
         }
       }
     }
