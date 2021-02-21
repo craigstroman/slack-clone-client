@@ -11,6 +11,7 @@ import {
   Wrapper,
 } from '../../../shared/styled/components/Messages/ChannelMessages/ChannelMessages';
 import Themes from '../../../shared/themes';
+import UserProfile from '../../UserProfile/UserProfile';
 
 const newChannelMessageSubscription = gql`
   subscription($channelId: Int!) {
@@ -113,8 +114,8 @@ class ChannelMessages extends React.Component {
               return (
                 <li key={`${uniqid()}`}>
                   <MessageHeader>
-                    <h3>{username}</h3>
-                    <div>
+                    <UserProfile username={username} />
+                    <div className="message-date-time">
                       <Moment calendar={calendarStrings}>{createdAt}</Moment>
                     </div>
                   </MessageHeader>
