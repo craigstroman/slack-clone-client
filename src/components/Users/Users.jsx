@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, Modal } from 'react-bootstrap';
 import styled from 'styled-components';
+import UserStatus from '../UserStatus/UserStatus';
 
 const StyledModal = styled(Modal)`
   .modal-dialog {
@@ -43,7 +44,10 @@ class Users extends React.Component {
           <Modal.Body>
             <ul className="user-list">
               {users.map((el, i) => (
-                <li key={el.uuid}>{el.username}</li>
+                <li key={el.uuid}>
+                  {el.username}
+                  <UserStatus status="away" size="small" />
+                </li>
               ))}
             </ul>
           </Modal.Body>
