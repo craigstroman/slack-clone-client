@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import userQuery from '../../shared/queries/getUserByName';
 import Themes from '../../shared/themes';
 import StyledPopOver from '../../shared/styled/components/UserProfile/UserProfile';
+import UserStatus from '../UserStatus/UserStatus';
 
 class UserProfile extends React.Component {
   constructor(props) {
@@ -74,12 +75,17 @@ class UserProfile extends React.Component {
               <FontAwesomeIcon icon={faUserAlt} size="10x" />
             </header>
             <main>
-              <h3>
-                {firstName} {lastName}
-              </h3>
-              <h5 className="email-link">
-                <a href={`mailto:${email}`}>{email}</a>
-              </h5>
+              <div className="user-name">
+                <h3>
+                  {firstName} {lastName}
+                </h3>
+                <UserStatus status="online" size="small" />
+              </div>
+              <div className="user-email">
+                <h5>
+                  <a href={`mailto:${email}`}>{email}</a>
+                </h5>
+              </div>
             </main>
             <footer>
               <Button type="button" variant="outline-dark" onClick={() => this.handleCallNumber(phoneNumber)}>
