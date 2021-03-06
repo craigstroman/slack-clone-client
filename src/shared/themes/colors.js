@@ -12,7 +12,10 @@ const colors = {
   shadyLady: '#B6ADB5',
   valentino: '#3F0E40',
   toryBlue: '#1164A3',
+
+  // User status colors
   jungleGreen: '#2BAC76',
+  sun: '#F9B913',
 
   // Message colors
   scorpion: '#616061',
