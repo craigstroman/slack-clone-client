@@ -13,7 +13,9 @@ const Wrapper = styled.div`
     &.online {
       color: ${(props) => props.theme.colors.jungleGreen};
     }
-    &.away,
+    &.away {
+      color: ${(props) => props.theme.colors.sun};
+    }
     &.offline {
       border: 1px solid ${(props) => props.theme.colors.black};
       border-radius: 50%;
