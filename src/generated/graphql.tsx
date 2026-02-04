@@ -51,7 +51,7 @@ export type MutationLoginArgs = {
 
 
 export type MutationRegisterArgs = {
-  options: UsernamePasswordInput;
+  options: UsernameRegisterInput;
 };
 
 export type Query = {
@@ -79,12 +79,11 @@ export type UserResponse = {
   user?: Maybe<User>;
 };
 
-export type UsernamePasswordInput = {
+export type UsernameRegisterInput = {
   email: Scalars['String']['input'];
   first_name: Scalars['String']['input'];
   last_name: Scalars['String']['input'];
   password: Scalars['String']['input'];
-  phone_number: Scalars['String']['input'];
   username: Scalars['String']['input'];
 };
 
@@ -121,6 +120,13 @@ export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: boolean };
+
+export type RegisterMutationVariables = Exact<{
+  options: UsernameRegisterInput;
+}>;
+
+
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, created_at: string, updated_at: string, username: string } | null } };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -198,6 +204,26 @@ export const LogoutDocument = gql`
 
 export function useLogoutMutation() {
   return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
+};
+export const RegisterDocument = gql`
+    mutation Register($options: UsernameRegisterInput!) {
+  register(options: $options) {
+    errors {
+      field
+      message
+    }
+    user {
+      id
+      created_at
+      updated_at
+      username
+    }
+  }
+}
+    `;
+
+export function useRegisterMutation() {
+  return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument);
 };
 export const MeDocument = gql`
     query Me {
