@@ -1,11 +1,12 @@
 import React from 'react';
+import gql from 'graphql-tag';
 import { createRoot } from 'react-dom/client';
 import { Client, Provider, fetchExchange, ssrExchange } from 'urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
-import gql from 'graphql-tag';
-import { Main } from './pages/Main/Main'
+import { Main } from './pages/Main/Main';
 import { betterUpdateQuery } from './shared/utils/betterUpdateQuery';
-// dedupExchange
+import { MeDocument, MeQuery, LogoutMutation, RegisterMutation, LoginMutation } from './generated/graphql';
+import { debugExchange } from './shared/utils/debugExchange';
 
 const element = document.getElementById('app');
 const root = createRoot(element as HTMLDivElement);
@@ -14,17 +15,15 @@ const ssr = ssrExchange({ isClient: false });
 
 const client = new Client({
   url:
-    nodeEnv === 'production' ? 'https://lireddit.craigstroman.com/graphql' : 'http://localhost:9000/graphql',
+    nodeEnv === 'production' ? 'https://lireddit.craigstroman.com/graphql' : 'http://localhost:9001/graphql',
   fetchOptions: {
     credentials: 'include',
   },
   exchanges: [
     cacheExchange({
-      keys: {
-      },
+      keys: {},
       resolvers: {
-        Query: {
-        },
+        Query: {},
       },
       updates: {
         Mutation: {
