@@ -1,95 +1,83 @@
 const path = require('path');
 const webpack = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
-const { faLeaf } = require('@fortawesome/free-solid-svg-icons');
 
+const filePath = path.join(__dirname, './public/js/');
 const fileName = 'main.min.js';
-const PATHS = {
-  src: path.join(__dirname, './src/'),
-  dist: path.join(__dirname, './public/js/'),
-};
 
 module.exports = {
   mode: 'production',
 
   entry: {
-    app: [path.join(__dirname, './src/App.jsx')],
+    app: [path.join(__dirname, 'src/App.tsx')],
   },
 
   output: {
-    path: PATHS.dist,
+    publicPath: '/static/js/',
+    path: filePath,
     filename: fileName,
-    publicPath: '/',
   },
 
   watch: false,
-
   watchOptions: {
     ignored: '/node_modules/',
   },
 
   optimization: {
-    minimizer: [
-      new TerserPlugin({
-        cache: true,
-        parallel: true,
-        terserOptions: {
-          compress: true,
-          emca: 6,
-          mangle: true,
-        },
-        sourceMap: false,
-      }),
-    ],
+    minimize: true,
+  },
+
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
 
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', 'jsx'],
   },
 
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            sourceMaps: false,
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: [
-              ['@babel/plugin-proposal-class-properties', { loose: true }],
-              ['@babel/plugin-proposal-decorators', { legacy: true }],
-              ['@babel/plugin-transform-async-to-generator'],
-              ['@babel/plugin-transform-runtime'],
-            ],
-          },
-        },
+        use: ['ts-loader'],
       },
       {
         test: /\.scss$/,
         use: [
           {
-            loader: 'style-loader', // creates style nodes from JS strings
+            loader: 'style-loader',
           },
           {
-            loader: 'css-loader', // translates CSS into CommonJS
+            loader: 'css-loader',
           },
           {
-            loader: 'sass-loader', // compiles Sass to CSS
+            loader: 'sass-loader',
           },
         ],
       },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'css-loader',
+          },
+        ],
+      },
+      {
+        test: /\.m?js$/,
+        include: /node_modules[\\/](graphql|@urql)/,
+        resolve: {
+          fullySpecified: false, // allow extension-less ESM imports (e.g., 'graphql/language/kinds')
+        },
+      },
     ],
   },
-
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    new Dotenv(),
   ],
 };
