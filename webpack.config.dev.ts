@@ -1,14 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const nodeEnv = process.env.NODE_ENV;
-const filePath = path.join(__dirname, './public/js/');
-const fileName = 'bundle.js';
-
-const PATHS = {
-  src: path.join(__dirname, './src/'),
-  dist: path.join(__dirname, 'public'),
+const ESLintOptions = {
+  overrideConfigFile: path.resolve(__dirname, 'src/.eslintrc.js'),
+  context: path.resolve(__dirname, '/src'),
+  extensions: ['js', 'jsx', 'ts', 'tsx'],
+  exclude: ['/node_modules/'],
+  emitError: true,
+  emitWarning: true,
 };
 
 module.exports = {
@@ -17,13 +18,12 @@ module.exports = {
   devtool: 'source-map',
 
   entry: {
-    app: [path.join(__dirname, './src/App.jsx')],
+    app: [path.join(__dirname, 'src/App.tsx')],
   },
 
   output: {
-    path: PATHS.dist,
-    filename: fileName,
-    publicPath: '/',
+    path: path.resolve(__dirname, 'public'),
+    filename: 'js/bundle.js',
   },
 
   watch: false,
@@ -32,34 +32,25 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js', 'jsx'],
   },
 
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: [
-              ['@babel/plugin-proposal-class-properties', { loose: true }],
-              ['@babel/plugin-proposal-decorators', { legacy: true }],
-              ['@babel/plugin-transform-async-to-generator'],
-              ['@babel/plugin-transform-runtime'],
-            ],
+            configFile: path.resolve(__dirname, '.babelrc'),
           },
         },
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'eslint-loader',
-          options: '.eslintrc.js',
-        },
+        use: ['ts-loader'],
       },
       {
         test: /\.scss$/,
@@ -72,32 +63,41 @@ module.exports = {
           },
           {
             loader: 'sass-loader', // compiles Sass to CSS
+            options: {
+              sassOptions: {
+                api: 'modern-compiler',
+                quietDeps: true,
+                quiet: true,
+                silenceDeprecations: ['mixed-decls', 'import', 'color-functions', 'global-builtin'],
+              },
+            },
           },
         ],
       },
       {
-        test: /\.(svg|woff|woff2|ttf|eot|otf)([\?]?.*)$/,
-        loader: 'file-loader?name=node_modules/@fortawesome/fontawesome-free/webfonts[name].[ext]',
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'css-loader', // translates CSS into CommonJS
+          },
+        ],
       },
     ],
   },
-
   devServer: {
-    contentBase: PATHS.dist,
-
-    compress: false,
-
-    historyApiFallback: true,
-
     hot: true,
-
-    port: 3000,
+    static: {
+      directory: path.resolve(__dirname, 'public'),
+    },
+    historyApiFallback: true,
   },
-
   plugins: [
-    new HtmlWebPackPlugin({
-      template: path.resolve(__dirname, 'public/index.html'),
-      filename: 'index.html',
+    new ESLintPlugin(ESLintOptions),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      debug: true,
+      sourceMap: true,
+      devTool: 'source-map',
     }),
   ],
 };
