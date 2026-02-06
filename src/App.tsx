@@ -7,6 +7,7 @@ import { Main } from './pages/Main/Main';
 import { betterUpdateQuery } from './shared/utils/betterUpdateQuery';
 import { MeDocument, MeQuery, LogoutMutation, RegisterMutation, LoginMutation } from './generated/graphql';
 import { debugExchange } from './shared/utils/debugExchange';
+import { error } from './shared/utils/errorExchange';
 
 const element = document.getElementById('app');
 const root = createRoot(element as HTMLDivElement);
@@ -48,7 +49,6 @@ const client = new Client({
                 }
               },
             );
-            invalidateAllPosts(cache);
           },
           register: (_result, args, cache, info) => {
             betterUpdateQuery<RegisterMutation, MeQuery>(
