@@ -1,0 +1,11 @@
+@mixin grid-columns-same-width($columns, $columnGap, $width) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  grid-column-gap: $columnGap;
+  width: $width;
+}
+
+@mixin grid-columns-different-widths($widths) {
+  display: grid;
+  grid-template-columns: $widths;
+}
