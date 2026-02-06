@@ -3,6 +3,7 @@ import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { ChangePassword } from '../ChangePassword/ChangePassword';
 import { ForgotPassword } from '../ForgotPassword/ForgotPassword';
+import { Dashboard } from '../Dashboard/Dashboard';
 
 export const Main: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ export const Main: React.FC = () => {
           <Route path=":token" element={<ChangePassword />} />
         </Route>
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
