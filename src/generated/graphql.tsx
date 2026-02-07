@@ -82,6 +82,7 @@ export type UsernameRegisterInput = {
   first_name: Scalars['String']['input'];
   last_name: Scalars['String']['input'];
   password: Scalars['String']['input'];
+  phone_number: Scalars['String']['input'];
   username: Scalars['String']['input'];
 };
 
