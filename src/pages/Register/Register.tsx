@@ -18,6 +18,7 @@ export const Register: React.FC = () => {
     first_name: '',
     last_name: '',
     email: '',
+    phone_number: '',
     username: '',
     password: '',
     password_confirmation: '',
@@ -27,6 +28,10 @@ export const Register: React.FC = () => {
     first_name: Yup.string().required('First name is required.'),
     last_name: Yup.string().required('Last name is required.'),
     email: Yup.string().email('Enter a valid email.').required('Email is required.'),
+    phone_number: Yup.string().matches(/^[6-9]\d{9}$/, {
+      message: 'Please enter valid number.',
+      excludeEmptyString: false,
+    }),
     username: Yup.string().required('Username is required.'),
     password: Yup.string()
       .required('Password is required.')
@@ -82,6 +87,7 @@ export const Register: React.FC = () => {
               first_name: values.first_name,
               last_name: values.last_name,
               email: values.email,
+              phone_number: values.phone_number,
               username: values.username,
               password: values.password,
             },
