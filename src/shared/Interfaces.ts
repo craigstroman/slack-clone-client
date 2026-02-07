@@ -29,3 +29,12 @@ export interface ITogglePassword {
   errors: ILoginErrors;
   onSendValue: (data: string) => void;
 }
+
+export interface IRegisterFormValues {
+  first_name: string;
+  last_name: string;
+  email: string;
+  username: string;
+  password: string;
+  password_confirmation: string;
+}
