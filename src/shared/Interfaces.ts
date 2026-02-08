@@ -39,3 +39,12 @@ export interface IRegisterFormValues {
   password: string;
   password_confirmation: string;
 }
+
+export interface IChangePassword {
+  new_password: string;
+  password_confirmation: string;
+}
+
+export interface IForgotPassword {
+  email: string;
+}
