@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { InputField } from '../../components/InputFIeld/InputField';
+import { InputField } from '../../components/InputField/InputField';
 import { IRegisterFormValues } from '../../shared/Interfaces';
 import { useRegisterMutation } from '../../generated/graphql';
 import { toErrorMap } from '../../shared/utils/toErrorMap';

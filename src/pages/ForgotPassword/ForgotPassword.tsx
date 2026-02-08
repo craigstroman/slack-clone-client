@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { InputField } from '../../components/InputFIeld/InputField';
+import { InputField } from '../../components/InputField/InputField';
 import { IForgotPassword } from '../../shared/Interfaces';
 import { useForgotPasswordMutation, useMeQuery } from '../../generated/graphql';
 import './ForgotPassword.scss';
@@ -28,6 +28,7 @@ export const ForgotPassword: React.FC = () => {
           const response = await forgotPassword(values);
           setComplete(true);
           if (response && response.data) {
+            console.log('response.data: ', response.data);
             setLinkURL(response.data.forgotPassword);
           }
         }}
