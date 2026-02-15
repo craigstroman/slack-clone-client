@@ -4,7 +4,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useLoginMutation } from '../../generated/graphql';
 import { ILoginValues } from '../../shared/Interfaces';
-import { InputField } from '../../components/InputField/InputField';
+import { InputField } from '../../components/InputFIeld/InputField';
 import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
 
 import './Login.scss';
