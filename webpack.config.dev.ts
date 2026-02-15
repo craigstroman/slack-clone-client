@@ -4,7 +4,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const ESLintOptions = {
-  overrideConfigFile: path.resolve(__dirname, 'src/.eslintrc.js'),
+  overrideConfigFile: path.resolve(__dirname, 'src/.eslintrc.ts'),
   context: path.resolve(__dirname, '/src'),
   extensions: ['js', 'jsx', 'ts', 'tsx'],
   exclude: ['/node_modules/'],
