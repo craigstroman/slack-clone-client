@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { toErrorMap } from '../../shared/utils/toErrorMap';
-import { InputField } from '../../components/InputField/InputField';
+import { InputField } from '../../components/InputFIeld/InputField';
 import { IChangePassword } from '../../shared/Interfaces';
 import { TogglePassword } from '../../components/TogglePassword/TogglePassword';
 import { useChangePasswordMutation } from '../../generated/graphql';
