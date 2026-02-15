@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { InputField } from '../../components/InputField/InputField';
+import { InputField } from '../../components/InputFIeld/InputField';
 import { IForgotPassword } from '../../shared/Interfaces';
 import { useForgotPasswordMutation, useMeQuery } from '../../generated/graphql';
 import './ForgotPassword.scss';
