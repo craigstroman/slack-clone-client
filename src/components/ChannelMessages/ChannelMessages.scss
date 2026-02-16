@@ -3,9 +3,9 @@
   color: #000;
   display: flex;
   flex-direction: column-reverse;
-  height: 86vh;
   overflow-y: scroll;
   position: relative;
+  vertical-align: top;
   ul {
     list-style-type: none;
     margin-block-start: 0;
