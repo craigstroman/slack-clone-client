@@ -28,6 +28,7 @@ export type FieldError = {
 export type Mutation = {
   __typename?: 'Mutation';
   changePassword: UserResponse;
+  create_team: TeamResponse;
   forgotPassword: Scalars['String']['output'];
   login: UserResponse;
   logout: Scalars['Boolean']['output'];
@@ -37,6 +38,10 @@ export type Mutation = {
 export type MutationChangePasswordArgs = {
   new_password: Scalars['String']['input'];
   token: Scalars['String']['input'];
+};
+
+export type MutationCreate_TeamArgs = {
+  options: TeamCreateInput;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -56,6 +61,34 @@ export type Query = {
   __typename?: 'Query';
   hello: Scalars['String']['output'];
   me: User;
+};
+
+export type Team = {
+  __typename?: 'Team';
+  created_at: Scalars['String']['output'];
+  id: Scalars['Float']['output'];
+  name: Scalars['String']['output'];
+  owner: Scalars['Float']['output'];
+  updated_at: Scalars['String']['output'];
+  user_id: Scalars['Float']['output'];
+};
+
+export type TeamCreateInput = {
+  name: Scalars['String']['input'];
+  owner: Scalars['Float']['input'];
+  user_id: Scalars['Float']['input'];
+};
+
+export type TeamError = {
+  __typename?: 'TeamError';
+  field: Scalars['String']['output'];
+  message: Scalars['String']['output'];
+};
+
+export type TeamResponse = {
+  __typename?: 'TeamResponse';
+  errors?: Maybe<Array<TeamError>>;
+  team?: Maybe<Team>;
 };
 
 export type User = {
