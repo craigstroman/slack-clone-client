@@ -20,6 +20,10 @@ body {
     aside {
       grid-area: sidebar;
       background-color: #613663;
+      overflow: auto;
+      resize: both;
+      width: 250px;
+      height: 100%;
     }
 
     main {
