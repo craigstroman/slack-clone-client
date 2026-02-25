@@ -7,6 +7,8 @@ import { SideBar } from '../../components/SideBar/SideBar';
 import { ChannelMessages } from '../../components/ChannelMessages/ChannelMessages';
 import './Dashboard.scss';
 
+// TODO: Continue looking at old slack clone and connecting way of looking up if a user is a member of a team or if not then redirect to the teams page where they can create a team
+
 export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const [{ data, fetching: meLoading }] = useMeQuery();
