@@ -135,6 +135,8 @@ export type RegularUserFragment = { __typename?: 'User', id: number, username: s
 
 export type RegularUserResponseFragment = { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: number, username: string } | null };
 
+export type TeamsSnippetFragment = { __typename?: 'Team', id: number, created_at: string, updated_at: string, name: string, owner: number, user_id: number, creator: { __typename?: 'User', id: number, username: string } };
+
 export type ChangePasswordMutationVariables = Exact<{
   token: Scalars['String']['input'];
   new_password: Scalars['String']['input'];
@@ -175,6 +177,11 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: number, username: string } };
 
+export type GetTeamsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTeamsQuery = { __typename?: 'Query', getTeams?: { __typename?: 'Teams', teams: Array<{ __typename?: 'Team', id: number, created_at: string, updated_at: string, name: string, owner: number, user_id: number, creator: { __typename?: 'User', id: number, username: string } }> } | null };
+
 export const RegularErrorFragmentDoc = gql`
     fragment RegularError on FieldError {
   field
@@ -198,6 +205,20 @@ export const RegularUserResponseFragmentDoc = gql`
 }
     ${RegularErrorFragmentDoc}
 ${RegularUserFragmentDoc}`;
+export const TeamsSnippetFragmentDoc = gql`
+    fragment TeamsSnippet on Team {
+  id
+  created_at
+  updated_at
+  name
+  owner
+  user_id
+  creator {
+    id
+    username
+  }
+}
+    `;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($token: String!, $new_password: String!) {
   changePassword(token: $token, new_password: $new_password) {
@@ -277,4 +298,17 @@ export const MeDocument = gql`
 
 export function useMeQuery(options?: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'>) {
   return Urql.useQuery<MeQuery, MeQueryVariables>({ query: MeDocument, ...options });
+};
+export const GetTeamsDocument = gql`
+    query getTeams {
+  getTeams {
+    teams {
+      ...TeamsSnippet
+    }
+  }
+}
+    ${TeamsSnippetFragmentDoc}`;
+
+export function useGetTeamsQuery(options?: Omit<Urql.UseQueryArgs<GetTeamsQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetTeamsQuery, GetTeamsQueryVariables>({ query: GetTeamsDocument, ...options });
 };
