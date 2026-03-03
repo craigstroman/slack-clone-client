@@ -48,3 +48,18 @@ export interface IChangePassword {
 export interface IForgotPassword {
   email: string;
 }
+
+interface Creator {
+  id: number;
+  username: string;
+}
+
+export interface ITeams {
+  id: number;
+  name: string;
+  owner: number;
+  user_id: number;
+  created_at: string;
+  updated_at: string;
+  creator: Creator;
+}
