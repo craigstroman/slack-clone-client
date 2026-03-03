@@ -1,0 +1,12 @@
+fragment TeamsSnippet on Team {
+  id
+  created_at
+  updated_at
+  name
+  owner
+  user_id
+  creator {
+    id
+    username
+  }
+}
