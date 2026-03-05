@@ -63,3 +63,7 @@ export interface ITeams {
   updated_at: string;
   creator: Creator;
 }
+
+export interface ICreateTeamValues {
+  name: string;
+}
