@@ -66,4 +66,6 @@ export interface ITeams {
 
 export interface ICreateTeamValues {
   name: string;
+  owner: number;
+  user_id: number;
 }
