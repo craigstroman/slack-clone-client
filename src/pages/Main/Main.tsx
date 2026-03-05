@@ -3,6 +3,7 @@ import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { ChangePassword } from '../ChangePassword/ChangePassword';
 import { ForgotPassword } from '../ForgotPassword/ForgotPassword';
+import { CreateTeam } from '../CreateTeam/CreateTeam';
 import { Dashboard } from '../Dashboard/Dashboard';
 
 export const Main: React.FC = () => {
@@ -17,6 +18,7 @@ export const Main: React.FC = () => {
         </Route>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/create-team" element={<CreateTeam />} />
       </Routes>
     </BrowserRouter>
   );
