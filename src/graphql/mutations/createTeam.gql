@@ -1,0 +1,11 @@
+mutation CreateTeam($options: TeamCreateInput!) {
+  create_team(options: $options) {
+    errors {
+      field
+      message
+    }
+    team {
+      ...TeamsSnippet
+    }
+  }
+}
