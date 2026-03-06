@@ -68,6 +68,7 @@ export type Team = {
   __typename?: 'Team';
   created_at: Scalars['String']['output'];
   creator: User;
+  creatorId: Scalars['Float']['output'];
   id: Scalars['Float']['output'];
   name: Scalars['String']['output'];
   owner: Scalars['Float']['output'];
@@ -76,6 +77,7 @@ export type Team = {
 };
 
 export type TeamCreateInput = {
+  creatorId: Scalars['Float']['input'];
   name: Scalars['String']['input'];
   owner: Scalars['Float']['input'];
   user_id: Scalars['Float']['input'];
