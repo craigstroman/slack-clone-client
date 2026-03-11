@@ -4,7 +4,7 @@ fragment TeamsSnippet on Team {
   updated_at
   name
   owner
-  user_id
+  creator_id
   creator {
     id
     username
