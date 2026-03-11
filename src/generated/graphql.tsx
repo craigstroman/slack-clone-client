@@ -28,7 +28,7 @@ export type FieldError = {
 export type Mutation = {
   __typename?: 'Mutation';
   changePassword: UserResponse;
-  create_team: TeamResponse;
+  create_team: TeamCreateResponse;
   forgotPassword: Scalars['String']['output'];
   login: UserResponse;
   logout: Scalars['Boolean']['output'];
@@ -68,12 +68,11 @@ export type Team = {
   __typename?: 'Team';
   created_at: Scalars['String']['output'];
   creator: User;
-  creatorId: Scalars['Float']['output'];
+  creator_id: Scalars['Float']['output'];
   id: Scalars['Float']['output'];
   name: Scalars['String']['output'];
   owner: Scalars['Float']['output'];
   updated_at: Scalars['String']['output'];
-  user_id: Scalars['Float']['output'];
 };
 
 export type TeamCreateInput = {
@@ -83,16 +82,16 @@ export type TeamCreateInput = {
   user_id: Scalars['Float']['input'];
 };
 
+export type TeamCreateResponse = {
+  __typename?: 'TeamCreateResponse';
+  errors?: Maybe<Array<TeamError>>;
+  team?: Maybe<Team>;
+};
+
 export type TeamError = {
   __typename?: 'TeamError';
   field: Scalars['String']['output'];
   message: Scalars['String']['output'];
-};
-
-export type TeamResponse = {
-  __typename?: 'TeamResponse';
-  errors?: Maybe<Array<TeamError>>;
-  team?: Maybe<Team>;
 };
 
 export type Teams = {
@@ -145,7 +144,7 @@ export type TeamsSnippetFragment = {
   updated_at: string;
   name: string;
   owner: number;
-  user_id: number;
+  creator_id: number;
   creator: { __typename?: 'User'; id: number; username: string };
 };
 
@@ -170,7 +169,7 @@ export type CreateTeamMutationVariables = Exact<{
 export type CreateTeamMutation = {
   __typename?: 'Mutation';
   create_team: {
-    __typename?: 'TeamResponse';
+    __typename?: 'TeamCreateResponse';
     errors?: Array<{ __typename?: 'TeamError'; field: string; message: string }> | null;
     team?: {
       __typename?: 'Team';
@@ -179,7 +178,7 @@ export type CreateTeamMutation = {
       updated_at: string;
       name: string;
       owner: number;
-      user_id: number;
+      creator_id: number;
       creator: { __typename?: 'User'; id: number; username: string };
     } | null;
   };
@@ -254,7 +253,7 @@ export type GetTeamsQuery = {
       updated_at: string;
       name: string;
       owner: number;
-      user_id: number;
+      creator_id: number;
       creator: { __typename?: 'User'; id: number; username: string };
     }>;
   } | null;
@@ -291,7 +290,7 @@ export const TeamsSnippetFragmentDoc = gql`
     updated_at
     name
     owner
-    user_id
+    creator_id
     creator {
       id
       username
