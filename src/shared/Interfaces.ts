@@ -1,7 +1,7 @@
 import { ReactNode, ChangeEvent } from 'react';
 
 export interface InputFieldProps {
-  placeholder: string;
+  placeholder?: string;
   name: string;
   fieldErrors: {
     [key: string]: string;
