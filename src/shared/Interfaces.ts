@@ -70,3 +70,7 @@ export interface ICreateTeamValues {
   user_id: number | undefined;
   creatorId: number | undefined;
 }
+
+export interface ITeamMessage {
+  message: string;
+}
