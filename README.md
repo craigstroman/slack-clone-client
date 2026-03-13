@@ -8,9 +8,9 @@ Online demo at http://slack-clone.craigstroman.com/.
 
 - Clone the repo at https://github.com/craigstroman/slack-clone-client.git.
 - CD into slack-clone-client.
-- Run `npm install` to install all required Node moduels.
-- Run `npm run start` to start the client development environment.
-- You can visit http://localhost:3000 in the browser to view it. But to do anything you need the
+- Run `npm install` or `yarn install` to install all required Node moduels.
+- Run `npm run live:server` or `yarn run live:server` to start the client development environment.
+- You can visit http://localhost:8080 in the browser to view it. But to do anything you need the
   [Slack Clone Server](https://github.com/craigstroman/slack-clone-server) running in another terminal window locally.
 
 Note: This is running on WebPack devServer and will automatically refresh when you make changes to the project.
