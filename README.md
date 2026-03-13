@@ -18,7 +18,7 @@ Note: This is running on WebPack devServer and will automatically refresh when y
 ## Running in production
 
 - CD into slack-clone-server.
-- Run `npm run prod`.
+- Run `npm run prod` or `yarn run prod`.
 - This will create a production build file of the JavaScript within /public/js/main.min.js.
 - Upload the main.min.js to the /public directory within your production build of the server. For that I'm using [Pug](https://pugjs.org/api/getting-started.html) with [Express](https://expressjs.com/).
 
