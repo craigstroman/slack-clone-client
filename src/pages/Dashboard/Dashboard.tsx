@@ -5,6 +5,7 @@ import { Header } from '../../components/Header/Header';
 import { Footer } from '../../components/Footer/Footer';
 import { SideBar } from '../../components/SideBar/SideBar';
 import { ChannelMessages } from '../../components/ChannelMessages/ChannelMessages';
+import { ChannelInput } from '../../components/ChannelInput/ChannelInput';
 import { ITeams } from '../../shared/Interfaces';
 import './Dashboard.scss';
 
@@ -53,18 +54,28 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard-container">
-      <header>
-        <Header />
-      </header>
       <aside>
-        <SideBar />
+        <div className="sidebar">
+          <SideBar />
+        </div>
       </aside>
       <main>
-        <ChannelMessages />
+        <div className="main-content-wrapper">
+          <header>
+            <div className="main-header">
+              <Header />
+            </div>
+          </header>
+          <div className="main-content">
+            <ChannelMessages />
+          </div>
+          <footer>
+            <div className="main-footer">
+              <ChannelInput />
+            </div>
+          </footer>
+        </div>
       </main>
-      <footer>
-        <Footer />
-      </footer>
     </div>
   );
 };
