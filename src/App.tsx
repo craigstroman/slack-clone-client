@@ -1,5 +1,4 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { createRoot } from 'react-dom/client';
 import { Client, Provider, fetchExchange, ssrExchange } from 'urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
