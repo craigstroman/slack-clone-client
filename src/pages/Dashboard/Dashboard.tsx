@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMeQuery, useGetTeamsQuery } from '../../generated/graphql';
 import { Header } from '../../components/Header/Header';
-import { Footer } from '../../components/Footer/Footer';
 import { SideBar } from '../../components/SideBar/SideBar';
 import { ChannelMessages } from '../../components/ChannelMessages/ChannelMessages';
 import { ChannelInput } from '../../components/ChannelInput/ChannelInput';
