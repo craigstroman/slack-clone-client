@@ -68,6 +68,7 @@
     "body-parser": "^2.2.2",
     "formik": "^2.4.9",
     "graphql": "^16.12.0",
+    "graphql-subscriptions": "^3.0.0",
     "graphql-tag": "^2.12.6",
     "npm": "^11.8.0",
     "react": "19.1.1",
