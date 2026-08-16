@@ -2,9 +2,12 @@
   "name": "slack-clone-client",
   "version": "1.0.0",
   "description": "A Slack Clone client using React.",
-  "main": "index.js",
+  "main": "src/App.tsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "NODE_ENV=production node ./build/index.js",
+    "live:server": "NODE_ENV=development webpack-dev-server --mode development --config webpack.config.dev.ts",
+    "gen": "graphql-codegen --config codegen.yml",
+    "prod": "NODE_ENV=production webpack --config webpack.config.prod.ts"
   },
   "author": "Craig Stroman",
   "license": "ISC",
